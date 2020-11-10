@@ -19,23 +19,55 @@
              :ts [:control :shift]
              ;
              }
- :froms {
-       ;alias
-       :delete {:key :delete_or_backspace}
-       :return {:key :return_or_enter}  
+ :froms {;alias
+         :delete {:key :delete_or_backspace}
+         :return {:key :return_or_enter}
+         
+         ;colemak froms (for easier nmemonics)
+         :-f {:key :e} 
+         :-p {:key :r}
+         :-g {:key :t}
+         :-j {:key :y}
+         :-l {:key :u}
+         :-u {:key :i}
+         :-y {:key :o}
+         :-semicolon {:key :p}
+         
+         :-a {:key :a}
+         :-r {:key :s}
+         :-s {:key :d}
+         :-t {:key :f}
+         :-d {:key :g}
+         :-n {:key :j}
+         :-e {:key :k}
+         :-i {:key :l}
+         :-o {:key :semicolon}
+         
+         :-z {:key :z}
+         :-x {:key :x}
+         :-c {:key :c}
+         :-v {:key :v}
+         :-b {:key :b}
+         :-k {:key :n}
+         :-m {:key :m}
+
+         ;
          }
 
  :tos {;
-
        ;shortcuts
        :autocomplete {:key :spacebar :modi :control} ;!Tspacebar
        :command_palette {:key :t :modi :command}
        :delete_line {:key :k :modi :cs} ;!CSk
-
+       
+       :find_in_project {:key :f :modi :cs} ;!CSf
+       
        :focus_git {:key :g :modi :ts} ;!TSg
        :focus_editor {:key :e :modi :control}
        :focus_explorer {:key :e :modi :cso} ;:!CSOe
-       :focus_terminal {:key :t :modi :control}
+       :focus_terminal {:key :j :modi :command}
+       
+       :toggle_explorer {:key :b :modi :command} ;!Cb
 
        :expand_selection {:key :right_arrow :modi :cst}
        :shrink_selection {:key :left_arrow :modi :cst}
@@ -56,13 +88,13 @@
        :greater_than {:key :period :modi :shift}
 
        :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
-
+       
        :open_onepassword {:key :backslash :modi :co} ;!OCbackslash
-
+       
        :take_screenshot {:key :6 :modi :cs} ;!CS6
-
+       
        :toggle_screen_brush {:key :tab :modi :option} ;!Otab
-
+       
        ;chrome
        :open_dev_tools {:key :i :modi :co} ;:!COl
        
@@ -148,13 +180,19 @@
            ;
            }
  :main [;
-        
+        {:des "test"
+         :rules [;
+                 ;
+                 ]
+         }
+  
         {:des "testing thumb chords"
          :rules [:f24-shift-mode
                  [:a "say poop"]
                  ;
-                 ]
-         }
+                 ]}
+
+
 
         {:des "slack"
          :rules [;
@@ -187,23 +225,23 @@
                  ;view
                  ;note - I try to keep these on my left hand so I can keep my right on the mouse
                  [:condi :code :escape-mode]
-                 [:t :focus_git] ;; SCM
-                 [:k :focus_explorer] ;; Explorer
-                 [:g :!CSOe] ;; Explorer
-                 [:d :!!s] ;; Status Bar
-                 [:f :!Cj]
-                 [:e :!CSf]
-                 [:z [:!Ck :z]]
-                 [:v :!!v]
-                 [:x :!!x]
-                 [:r :!!r]
+                 [:-g :focus_git] ;; SCM
+                 [:-e :focus_explorer] ;; Explorer
+                 [:-d :focus_explorer] ;; Explorer
+                 [:-s :!!s] ;; Status Bar
+                 [:-t :focus_terminal]
+                 [:-f :find_in_project]
+                 [:-z [:!Ck :z]] ;zen mode
+                 [:-v :!!v]
+                 [:-x :!!x]
+                 [:-p :!!r] ;toggle panel
                  [:semicolon :!!semicolon]
 
                 ;;  [:left_shift :!Cb]
-                 [:a :!Cb]
+                ;;  [:-a :toggle_explorer]
 
                  ;trackpad
-
+                 
                  ;trackpad 2
                  [:condi :code ["multitouch_extension_finger_count_total" 2]]
                  [:s [:button1 :f2]]
@@ -253,13 +291,13 @@
                  [:q [:q :q]]
                  [:w :!COl]
                  [:g [:button1 :button1]]
-                 
+
                  [:t :!C4]
                  [:hyphen :!C1]
                  [:equal_sign :!C2]
-                 
-                ;;  [:g [:button1 :button1]]
 
+                ;;  [:g [:button1 :button1]]
+                 
 
                  [:e :!Stab]
                  [:r :!COp]
@@ -268,9 +306,7 @@
                  [:delete_or_backspace [:button1 :delete_or_backspace]]
                  [:f1 :!C4]
                  ;;  
-                 [:condi :ableton ["multitouch_extension_finger_count_total" 3]]
-                 [:f :!CSt]
-
+                 
                  ;trackpad 2
                  [:condi :ableton ["multitouch_extension_finger_count_total" 2]]
                  [:a :!COb]
@@ -285,28 +321,74 @@
                  [:f :!Cj]
                  ;
                  ]}
+        
+        {:des "trackpad"
+         :rules [;
+                 :multitouch_extension_finger_count_total
+                 [:f :button1]
+
+                 [:grave_accent_and_tilde :!Tgrave_accent_and_tilde]
+                 [:w :!Cw]
+                 [:e :!Ct]
+                 [:r :!Cl]
+
+                 [:a {:pkey :button1 :modi :left_option}]
+                 [:s :button2]
+
+                 [:d {:pkey :button1 :modi :left_shift}]
+                 ;Allow "a" to be left_option in other apps
+                 [:g {:pkey :button1 :modi :left_command}]
+
+                 [:z :!Cz]
+                ;  [:non_us_backslash :!CSz]
+                 [:x :!Cx]
+                 [:c :!Cc]
+                 [:v :!Cv]
+                 [:b :!Cb]
+
+                 ;trackpad 2
+                 [:condi ["multitouch_extension_finger_count_total" 2]]
+
+                 [:x [:button1 :!Cx]]
+                 [:c [:button1 :!Cc]]
+                 [:v [:button1 :!Cv]]
+                ;;  [:##f :button2]
+                 
+                 ;trackpad 3
+                 [:condi ["multitouch_extension_finger_count_total" 3]]
+                 [:d :take_screenshot]
+
+                ;;  [:a :!COleft_arrow]
+                ;;  [:s :!Cleft_arrow]
+                ;;  [:d :!Cright_arrow]
+                ;;  [:f :!COright_arrow]
+                 
+                 ;trackpad 4
+                 [:condi ["multitouch_extension_finger_count_total" 4]]
+                 [:##f :return_or_enter]
+                 ;
+                 ]}
 
         {:des "snippets"
          :rules [:quote-mode
-                 [:c [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]]  ;console.log()
-                 [:j [:c :l :a :s :s :!Sn :a :m :e :equal_sign :!Squote :!Squote :left_arrow]] ;className="" 
-                 [:k [:type "johnlindquist@egghead.io"]]
-                 [:t [:type "johnlindquist@gmail.com"]]
-                 [:d [:type "johnlindquist+spam@gmail.com"]]
-                 [:y [:type "johnlindquist"]]
-                 ]}
+                 [:-c [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]]  ;console.log()
+                 [:-n [:c :l :a :s :s :!Sn :a :m :e :equal_sign :!Squote :!Squote :left_arrow]] ;className="" 
+                 [:-e [:type "johnlindquist@egghead.io"]]
+                 [:-g [:type "johnlindquist@gmail.com"]]
+                 [:-s [:type "johnlindquist+spam@gmail.com"]]
+                 [:-j [:type "johnlindquist"]]]}
 
         {:des "open files"
          :rules [:semicolon-mode
-                 [:c [:code-project "~/.config"]]
-                 [:n [:code-project "~/.dotfiles/karabiner/karabiner.edn"]]
-                 [:b [:code-project "~/.bin"]]
-                 [:z  [:code-project "~/.zfunc"]]
-                 [:y  [:code-project "~/.js"]]
-                 [:a [:code-project "~/projects/automatoes.com"]]
-                 [:u [:code-project "~/projects/automatoes.com/_layouts"]]
-                 [:j [:code-project "~/projects/egghead-io-nextjs"]]
-                 [:f [:zsh "thoughts"]]
+                 [:-c [:code-project "~/.config"]]
+                 [:-k [:code-project "~/.dotfiles/karabiner/"]]
+                 [:-b [:code-project "~/.bin"]]
+                 [:-z  [:code-project "~/.zfunc"]]
+                 [:-j  [:code-project "~/.js"]]
+                 [:-a [:code-project "~/projects/automatoes.com"]]
+                 [:-l [:code-project "~/projects/automatoes.com/_layouts"]]
+                 [:-e [:code-project "~/projects/egghead-io-nextjs"]]
+                 [:-t [:zsh "thoughts"]] ;a script that creates a new journal mdx file and open in code
 
                  ;
                  ]}
@@ -319,7 +401,7 @@
                   {:afterup {:key :a}}]
                  [:condi :fcp :multitouch_extension_finger_count_total]
                  [:delete_or_backspace [:button1 :delete_or_backspace]]
-                 
+
 
                 ;;  [:left_command :left_command nil {:alone :!Cb}]
                  ;
@@ -328,18 +410,18 @@
          :rules [:chrome
                  [:left_command :left_command nil {:alone [:!Ct]}]
                  [:left_option :left_option nil {:alone [:!Cw]}]
-                 
+
                  [:condi :chrome ["multitouch_extension_finger_count_total" 1]]
-                 
+
                  [:condi :chrome ["multitouch_extension_finger_count_total" 2]]
-                 [:g :open_dev_tools]
-                 [:a :!COleft_arrow]
-                 [:f :!COright_arrow]
+                 [:-d :open_dev_tools]
+                 [:-a :!COleft_arrow]
+                 [:-t :!COright_arrow]
                 ;;  [:grave_accent_and_tilde :a nil {:delayed {:invoked [:y] :canceled [:x]}}]
                  ;
                  ;
                  ]}
-        
+
 
 
 
@@ -353,21 +435,21 @@
         {:des "alfred"
          :rules
          [:f24-mode
-          [:a :open_onepassword]
-          [:c [:alfred "code" "com.vivaxy.alfred-workflow.open-in-vscode" " "]]
-          [:f :!!d] ;Search Google
+          [:-a :open_onepassword]
+          [:-c [:alfred "code" "com.vivaxy.alfred-workflow.open-in-vscode" " "]]
+          [:-t :!!d] ;Search Google
         ;   [:f [:alfred "google" "com.johnlindquist.google"]] ;Search Google
-          [:t [:alfred "github" "de.gh01.alfred.github" " "]]
-          [:o [:alfred "giphy" "dev.kejadlen.giphy" " "]]
-          [:f :!!t]
-          [:u :!!l]
-          [:l [:launch "iTerm"]]
+          [:-g [:alfred "github" "de.gh01.alfred.github" " "]]
+          [:-y [:alfred "giphy" "dev.kejadlen.giphy" " "]]
+          [:-f :!!t]
+          [:-l :!!l]
+          [:-i [:launch "iTerm"]]
           ;restart karabiner
-          [:n "launchctl kickstart -k org.pqrs.karabiner.karabiner_console_user_server"]
+          [:-k "launchctl kickstart -k org.pqrs.karabiner.karabiner_console_user_server"]
                  ;
           ]}
-        
-        
+
+
         {:des "j-mode right hand"
          :rules [:j-mode
                  [:k :emoji_picker]
@@ -402,7 +484,7 @@
 
                 ;;  [:##n :delete_or_backspace]
                 ;;  [:##period :delete_forward]
-
+                 
 
                  [:##y :!Cleft_arrow]
                  [:##o :!Cright_arrow]
@@ -417,7 +499,7 @@
                  [:!Sreturn_or_enter :insert_line_above]
 
 
-                 
+
 
                  [:left_shift :expand_selection]
                  ;
@@ -454,8 +536,8 @@
                  [:##j :!Sdown_arrow]
                  [:##k :!Sup_arrow]
                  [:##l :!Sright_arrow]
-                 
-                 
+
+
                  [:left_shift :shrink_selection]
                  ;
                  ]}
@@ -480,9 +562,9 @@
                 ;  [:h {:mkey {:hwheel 60}}]
                 ;  [:j {:mkey {:vwheel 60}}]
                 ;  [:k {:mkey {:vwheel -60}}]
-
+                 
                 ;  [:l {:mkey {:hwheel -60}}]
-
+                 
                  [:##d :left_shift]
                  [:##s :left_command]
 
@@ -519,15 +601,15 @@
                  [:q [:!S9 :!S0 :equal_sign :greater_than :spacebar]];()=> 
                  [:e [:!S9 :!S9 :!S0 :equal_sign :greater_than :spacebar :open_brace :close_brace :!S0 :left_arrow :left_arrow]];(()=> {})
                  [:u [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]];console.log()
-
+                 
                  [:g [:spacebar :equal_sign :greater_than :spacebar]]; => 
                  [:h [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:b [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:quote [:equal_sign :!Squote :!Squote :left_arrow]];=""
-
+                 
 
                  ;macros
-
+                 
 
                  ;
                  ]}
@@ -565,12 +647,12 @@
 
         {:des "tab-mode"
          :rules [:tab-mode
-                 [:m [:open "https://access.mymind.com/cards"]]
-                 [:t [:open "https://mail.google.com/mail/u/0/#inbox"]]
-                 [:f [:open "https://twitter.com"]]
-                 [:n [:open "https://github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
-                 [:u [:open "http://localhost:3000"]]
-                 [:j [:open "https://next.egghead.io"]]
+                 [:-m [:open "https://access.mymind.com/cards"]]
+                 [:-g [:open "https://mail.google.com/mail/u/0/#inbox"]]
+                 [:-t [:open "https://twitter.com"]]
+                 [:-k [:open "https://github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
+                 [:-l [:open "http://localhost:3000"]]
+                 [:-n [:open "https://next.egghead.io"]]
 ;
                  ]}
 
@@ -581,63 +663,14 @@
         ;;                                      :dorder :insensitive
         ;;                                      :uorder :insensitive
         ;;                                      }} {:set ["asdf-mode" 1]}]
-
+        
         ;;          :asdf-mode
         ;;          [:c [:c :o :n :s :o :l :e ] nil {:afterup {:set ["asdf-mode" 0]}}]
-
+        
         ;;          ;
         ;;          ]
         ;;  }
-
-
-        {:des "trackpad"
-         :rules [;
-                 :multitouch_extension_finger_count_total
-                 [:f :button1]
-
-                 [:grave_accent_and_tilde :!Tgrave_accent_and_tilde]
-                 [:w :!Cw]
-                 [:e :!Ct]
-                 [:r :!Cl]
-
-                 [:a {:pkey :button1 :modi :left_option}]
-                 [:s :button2]
-
-                 [:d {:pkey :button1 :modi :left_shift}]
-                 ;Allow "a" to be left_option in other apps
-                 [:g {:pkey :button1 :modi :left_command}]
-
-                 [:z :!Cz]
-                ;  [:non_us_backslash :!CSz]
-                 [:x :!Cx]
-                 [:c :!Cc]
-                 [:v :!Cv]
-                 [:b :!Cb]
-
-                 ;trackpad 2
-                 [:condi ["multitouch_extension_finger_count_total" 2]]
-
-                 [:x [:button1 :!Cx]]
-                 [:c [:button1 :!Cc]]
-                 [:v [:button1 :!Cv]]
-                 [:##f :button2]
-
-                 ;trackpad 3
-                 [:condi ["multitouch_extension_finger_count_total" 3]]
-                 [:d :take_screenshot]
-                 
-                ;;  [:a :!COleft_arrow]
-                ;;  [:s :!Cleft_arrow]
-                ;;  [:d :!Cright_arrow]
-                ;;  [:f :!COright_arrow]
-
-                 ;trackpad 4
-                 [:condi ["multitouch_extension_finger_count_total" 4]]
-                 [:##f :return_or_enter]
-                 ;
-                 ]}
-
-
+        
 
         {:des "colemak"
          :rules [;
@@ -665,27 +698,12 @@
                  ;
                  ]}
 
-        {:des "global"
-         :rules [
-                 ;
-                 [:f8 :toggle_screen_brush]
-                 
-                 
-
-                 ;
-                 ]}
 
 
-        {:des "macbook"
-         :rules [:macbook
-                 [:##left_shift :left_shift nil {:alone :delete_or_backspace}]
-                 [:##right_shift :right_shift nil {:alone :delete_forward}]
-
-                ;;  [:slash :left_command nil {:alone :slash}]
-                 ;
-                 ]}
         ;
         ]}
+
+
 
 
 ;; rule [:period ["period-mode" 1] nil {:afterup ["period-mode" 0] :alone :period}]
