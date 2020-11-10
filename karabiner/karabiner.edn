@@ -1,5 +1,3 @@
-
-
 {:default true
 
  :alone 500
@@ -22,9 +20,9 @@
  :froms {;alias
          :delete {:key :delete_or_backspace}
          :return {:key :return_or_enter}
-         
-         ;colemak froms (for easier nmemonics)
-         :-f {:key :e} 
+
+         ;colemak froms (for easier mnemonics)
+         :-f {:key :e}
          :-p {:key :r}
          :-g {:key :t}
          :-j {:key :y}
@@ -32,7 +30,7 @@
          :-u {:key :i}
          :-y {:key :o}
          :-semicolon {:key :p}
-         
+
          :-a {:key :a}
          :-r {:key :s}
          :-s {:key :d}
@@ -42,7 +40,7 @@
          :-e {:key :k}
          :-i {:key :l}
          :-o {:key :semicolon}
-         
+
          :-z {:key :z}
          :-x {:key :x}
          :-c {:key :c}
@@ -59,15 +57,15 @@
        :autocomplete {:key :spacebar :modi :control} ;!Tspacebar
        :command_palette {:key :t :modi :command}
        :delete_line {:key :k :modi :cs} ;!CSk
-       
+
        :find_in_project {:key :f :modi :cs} ;!CSf
-       
+
        :focus_git {:key :g :modi :ts} ;!TSg
        :focus_editor {:key :e :modi :control}
        :focus_explorer {:key :e :modi :cso} ;:!CSOe
        :focus_terminal {:key :j :modi :command}
-       
-       :toggle_explorer {:key :b :modi :command} ;!Cb
+
+       :toggle_sidebar {:key :b :modi :command} ;!Cb
 
        :expand_selection {:key :right_arrow :modi :cst}
        :shrink_selection {:key :left_arrow :modi :cst}
@@ -88,16 +86,16 @@
        :greater_than {:key :period :modi :shift}
 
        :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
-       
+
        :open_onepassword {:key :backslash :modi :co} ;!OCbackslash
-       
+
        :take_screenshot {:key :6 :modi :cs} ;!CS6
-       
+
        :toggle_screen_brush {:key :tab :modi :option} ;!Otab
-       
+
        ;chrome
        :open_dev_tools {:key :i :modi :co} ;:!COl
-       
+
        ;
        }
  :conditions {;
@@ -141,8 +139,8 @@
           :shift-mode {:key :shift}
           :tab-mode {:key :tab :alone {:key :tab}}
           :tilde-mode {:key :grave_accent_and_tilde :alone {:key :grave_accent_and_tilde}}
-          
-          ;testing thumb chords
+
+          ;testing left thumb + right thumb
           :f24-shift-mode {:key :left_shift :condi :f24-mode}
 
           ;
@@ -169,9 +167,9 @@
              :slash-mode {:key :slash}
 
              :semicolon-mode {:key :semicolon}
-             
+
              :spacebar-mode {:key :spacebar}
-        
+
  ;
              }
  :devices {;; Note - I'm currently using a Kinesis Advantage keyboard for my defaults
@@ -183,9 +181,8 @@
         {:des "test"
          :rules [;
                  ;
-                 ]
-         }
-  
+                 ]}
+
         {:des "testing thumb chords"
          :rules [:f24-shift-mode
                  [:a "say poop"]
@@ -238,13 +235,13 @@
                  [:semicolon :!!semicolon]
 
                 ;;  [:left_shift :!Cb]
-                ;;  [:-a :toggle_explorer]
+                 [:-a :toggle_sidebar]
 
                  ;trackpad
-                 
+
                  ;trackpad 2
                  [:condi :code ["multitouch_extension_finger_count_total" 2]]
-                 [:s [:button1 :f2]]
+                 [:-t [:button1 :f2]]
 
                  ;
                  ]}
@@ -297,7 +294,7 @@
                  [:equal_sign :!C2]
 
                 ;;  [:g [:button1 :button1]]
-                 
+
 
                  [:e :!Stab]
                  [:r :!COp]
@@ -306,7 +303,7 @@
                  [:delete_or_backspace [:button1 :delete_or_backspace]]
                  [:f1 :!C4]
                  ;;  
-                 
+
                  ;trackpad 2
                  [:condi :ableton ["multitouch_extension_finger_count_total" 2]]
                  [:a :!COb]
@@ -321,7 +318,7 @@
                  [:f :!Cj]
                  ;
                  ]}
-        
+
         {:des "trackpad"
          :rules [;
                  :multitouch_extension_finger_count_total
@@ -353,7 +350,7 @@
                  [:c [:button1 :!Cc]]
                  [:v [:button1 :!Cv]]
                 ;;  [:##f :button2]
-                 
+
                  ;trackpad 3
                  [:condi ["multitouch_extension_finger_count_total" 3]]
                  [:d :take_screenshot]
@@ -362,7 +359,7 @@
                 ;;  [:s :!Cleft_arrow]
                 ;;  [:d :!Cright_arrow]
                 ;;  [:f :!COright_arrow]
-                 
+
                  ;trackpad 4
                  [:condi ["multitouch_extension_finger_count_total" 4]]
                  [:##f :return_or_enter]
@@ -428,7 +425,7 @@
         {:des "caps_lock"
          :rules [:caps_lock-mode
                  [:##caps_lock :##escape]
-
+                 ; I don't use a caps_lock key on my keyboard
                  ;
                  ]}
 
@@ -484,7 +481,7 @@
 
                 ;;  [:##n :delete_or_backspace]
                 ;;  [:##period :delete_forward]
-                 
+
 
                  [:##y :!Cleft_arrow]
                  [:##o :!Cright_arrow]
@@ -562,9 +559,9 @@
                 ;  [:h {:mkey {:hwheel 60}}]
                 ;  [:j {:mkey {:vwheel 60}}]
                 ;  [:k {:mkey {:vwheel -60}}]
-                 
+
                 ;  [:l {:mkey {:hwheel -60}}]
-                 
+
                  [:##d :left_shift]
                  [:##s :left_command]
 
@@ -601,15 +598,15 @@
                  [:q [:!S9 :!S0 :equal_sign :greater_than :spacebar]];()=> 
                  [:e [:!S9 :!S9 :!S0 :equal_sign :greater_than :spacebar :open_brace :close_brace :!S0 :left_arrow :left_arrow]];(()=> {})
                  [:u [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]];console.log()
-                 
+
                  [:g [:spacebar :equal_sign :greater_than :spacebar]]; => 
                  [:h [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:b [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:quote [:equal_sign :!Squote :!Squote :left_arrow]];=""
-                 
+
 
                  ;macros
-                 
+
 
                  ;
                  ]}
@@ -617,6 +614,7 @@
 
         {:des "special characters"
          :rules [:tilde-mode
+                 ;special characters: !@#$%^&*()
                  [:##a :!S1]
                  [:##s :!S2]
                  [:##d :!S3]
@@ -647,6 +645,7 @@
 
         {:des "tab-mode"
          :rules [:tab-mode
+                 ;open urls
                  [:-m [:open "https://access.mymind.com/cards"]]
                  [:-g [:open "https://mail.google.com/mail/u/0/#inbox"]]
                  [:-t [:open "https://twitter.com"]]
@@ -663,14 +662,14 @@
         ;;                                      :dorder :insensitive
         ;;                                      :uorder :insensitive
         ;;                                      }} {:set ["asdf-mode" 1]}]
-        
+
         ;;          :asdf-mode
         ;;          [:c [:c :o :n :s :o :l :e ] nil {:afterup {:set ["asdf-mode" 0]}}]
-        
+
         ;;          ;
         ;;          ]
         ;;  }
-        
+
 
         {:des "colemak"
          :rules [;
