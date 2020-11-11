@@ -53,6 +53,9 @@
          }
 
  :tos {;
+       :delete {:key :delete_or_backspace}
+       :return {:key :return_or_enter}
+
        ;shortcuts
        :autocomplete {:key :spacebar :modi :control} ;!Tspacebar
        :command_palette {:key :t :modi :command}
@@ -110,6 +113,26 @@
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
              :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
              :launch "osascript -e 'tell application \"%s\" to activate'"
+             :open-chrome "osascript -e '
+                        set address to \"%s\"
+                        
+                        tell application \"Google Chrome\"
+                           activate
+                                if not (exists window 1) then reopen
+                                repeat with w in windows
+                                        set i to 1
+                                        repeat with t in tabs of w
+                                        if URL of t starts with address then
+                                                set active tab index of w to i
+                                                set index of w to 1
+                                                return
+                                        end if
+                                        set i to i + 1
+                                        end repeat
+                                end repeat
+                                open location address
+                        end tell
+                           '"
              :open "open \"%s\""
              :open-a "open -a '%s'"
              :restream "osascript -e 'tell application \"Restream Chat\" to activate'"
@@ -342,6 +365,8 @@
                  [:c :!Cc]
                  [:v :!Cv]
                  [:b :!Cb]
+
+                 [:delete [:button1 :delete]]
 
                  ;trackpad 2
                  [:condi ["multitouch_extension_finger_count_total" 2]]
@@ -646,12 +671,12 @@
         {:des "tab-mode"
          :rules [:tab-mode
                  ;open urls
-                 [:-m [:open "https://access.mymind.com/cards"]]
-                 [:-g [:open "https://mail.google.com/mail/u/0/#inbox"]]
-                 [:-t [:open "https://twitter.com"]]
-                 [:-k [:open "https://github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
-                 [:-l [:open "http://localhost:3000"]]
-                 [:-n [:open "https://next.egghead.io"]]
+                 [:-m [:open-chrome "https://access.mymind.com/cards"]]
+                 [:-g [:open-chrome "https://mail.google.com/mail/u/0/#inbox"]]
+                 [:-t [:open-chrome "https://twitter.com" "https://twitter.com"]]
+                 [:-k [:open-chrome "https://github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
+                 [:-l [:open-chrome "http://localhost:3000"]]
+                 [:-n [:open-chrome "https://next.egghead.io"]]
 ;
                  ]}
 
