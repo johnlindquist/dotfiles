@@ -22,6 +22,8 @@
          :return {:key :return_or_enter}
 
          ;colemak froms (for easier mnemonics)
+         :-q {:key :q}
+         :-w {:key :w}
          :-f {:key :e}
          :-p {:key :r}
          :-g {:key :t}
@@ -36,6 +38,7 @@
          :-s {:key :d}
          :-t {:key :f}
          :-d {:key :g}
+         :-h {:key :h}
          :-n {:key :j}
          :-e {:key :k}
          :-i {:key :l}
@@ -135,6 +138,12 @@
                            '"
              :open "open \"%s\""
              :open-a "open -a '%s'"
+             :paste "osascript -e '
+                        set the clipboard to \"%s\"
+                        tell application \"System Events\"
+                                keystroke \"v\" using command down
+                        end tell
+                '"
              :restream "osascript -e 'tell application \"Restream Chat\" to activate'"
              :zsh "zsh ~/.zfunc/'%s'"
              ;
@@ -261,7 +270,7 @@
                  [:-a :toggle_sidebar]
 
                  ;trackpad
-
+                 
                  ;trackpad 2
                  [:condi :code ["multitouch_extension_finger_count_total" 2]]
                  [:-t [:button1 :f2]]
@@ -317,7 +326,7 @@
                  [:equal_sign :!C2]
 
                 ;;  [:g [:button1 :button1]]
-
+                 
 
                  [:e :!Stab]
                  [:r :!COp]
@@ -326,7 +335,7 @@
                  [:delete_or_backspace [:button1 :delete_or_backspace]]
                  [:f1 :!C4]
                  ;;  
-
+                 
                  ;trackpad 2
                  [:condi :ableton ["multitouch_extension_finger_count_total" 2]]
                  [:a :!COb]
@@ -375,7 +384,7 @@
                  [:c [:button1 :!Cc]]
                  [:v [:button1 :!Cv]]
                 ;;  [:##f :button2]
-
+                 
                  ;trackpad 3
                  [:condi ["multitouch_extension_finger_count_total" 3]]
                  [:d :take_screenshot]
@@ -384,7 +393,7 @@
                 ;;  [:s :!Cleft_arrow]
                 ;;  [:d :!Cright_arrow]
                 ;;  [:f :!COright_arrow]
-
+                 
                  ;trackpad 4
                  [:condi ["multitouch_extension_finger_count_total" 4]]
                  [:##f :return_or_enter]
@@ -411,7 +420,7 @@
                  [:-l [:code-project "~/projects/automatoes.com/_layouts"]]
                  [:-e [:code-project "~/projects/egghead-io-nextjs"]]
                  [:-t [:zsh "thoughts"]] ;a script that creates a new journal mdx file and open in code
-
+                 
                  ;
                  ]}
 
@@ -444,7 +453,35 @@
                  ;
                  ]}
 
-
+;
+        {:des "emoji"
+         :rules [:z-mode
+                 [:-a [:paste ""]] ;                
+                 [:-b [:paste "🧠"]] ;brain
+                 [:-c [:paste "😢"]] ;cry
+                 [:-d [:paste "🧐"]] ;dignified
+                 [:-e [:paste "👀"]] ;eyes
+                 [:-f [:paste "🤦‍♂️"]] ;facepalm
+                 [:-g [:paste "😬"]] ;grimace
+                 [:-h [:paste "😍"]] ;heart-eyes
+                 [:-i [:paste ""]] ;
+                 [:-j [:paste ""]] ;
+                 [:-k [:paste ""]] ;
+                 [:-l [:paste "❤️"]] ;love
+                 [:-m [:paste "🤯"]] ;mind blown
+                 [:-n [:paste "🤓"]] ;nerd
+                 [:-o [:paste "💩"]] ;pOop
+                 [:-p [:paste "🎉"]] ;party
+                 [:-s [:paste "🙂"]] ;smile
+                 [:-t [:paste "🏆"]] ;trophy
+                 [:-u [:paste ""]] ;
+                 [:-v [:paste "😎"]] ;very cool
+                 [:-w [:paste "😅"]] ;sWeat
+                 [:-x [:paste ""]] ;
+                 [:-y [:paste ""]] ;
+                 ;
+                 ]
+         }
 
 
         {:des "caps_lock"
@@ -506,7 +543,7 @@
 
                 ;;  [:##n :delete_or_backspace]
                 ;;  [:##period :delete_forward]
-
+                 
 
                  [:##y :!Cleft_arrow]
                  [:##o :!Cright_arrow]
@@ -584,9 +621,9 @@
                 ;  [:h {:mkey {:hwheel 60}}]
                 ;  [:j {:mkey {:vwheel 60}}]
                 ;  [:k {:mkey {:vwheel -60}}]
-
+                 
                 ;  [:l {:mkey {:hwheel -60}}]
-
+                 
                  [:##d :left_shift]
                  [:##s :left_command]
 
@@ -623,15 +660,15 @@
                  [:q [:!S9 :!S0 :equal_sign :greater_than :spacebar]];()=> 
                  [:e [:!S9 :!S9 :!S0 :equal_sign :greater_than :spacebar :open_brace :close_brace :!S0 :left_arrow :left_arrow]];(()=> {})
                  [:u [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]];console.log()
-
+                 
                  [:g [:spacebar :equal_sign :greater_than :spacebar]]; => 
                  [:h [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:b [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:quote [:equal_sign :!Squote :!Squote :left_arrow]];=""
-
+                 
 
                  ;macros
-
+                 
 
                  ;
                  ]}
@@ -687,14 +724,14 @@
         ;;                                      :dorder :insensitive
         ;;                                      :uorder :insensitive
         ;;                                      }} {:set ["asdf-mode" 1]}]
-
+        
         ;;          :asdf-mode
         ;;          [:c [:c :o :n :s :o :l :e ] nil {:afterup {:set ["asdf-mode" 0]}}]
-
+        
         ;;          ;
         ;;          ]
         ;;  }
-
+        
 
         {:des "colemak"
          :rules [;
