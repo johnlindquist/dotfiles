@@ -131,7 +131,7 @@
                                 repeat with w in windows
                                         set i to 1
                                         repeat with t in tabs of w
-                                        if URL of t starts with address then
+                                        if URL of t contains address then
                                                 set active tab index of w to i
                                                 set index of w to 1
                                                 return
@@ -139,7 +139,7 @@
                                         set i to i + 1
                                         end repeat
                                 end repeat
-                                open location address
+                                open location \"http://\" & address
                         end tell
                            '"
              :open "open \"%s\""
@@ -448,6 +448,7 @@
                  [:-a [:code-project "~/projects/automatoes.com"]]
                  [:-l [:code-project "~/projects/automatoes.com/_layouts"]]
                  [:-e [:code-project "~/projects/egghead-io-nextjs"]]
+                 [:-r [:code-project "~/projects/egghead-rails"]]
                  [:-t [:zsh "thoughts"]] ;a script that creates a new journal mdx file and open in code
 
                  ;
@@ -486,7 +487,7 @@
         {:des "emoji"
          :rules [:z-mode
                  [:-a [:paste ""]] ;                
-                 [:-b [:paste "🧠"]] ;brain
+                 [:-b [:paste "😊"]] ;blush
                  [:-c [:paste "😢"]] ;cry
                  [:-d [:paste "🧐"]] ;dignified
                  [:-e :emoji_picker] ;eyes
@@ -744,13 +745,17 @@
         {:des "tab-mode"
          :rules [:tab-mode
                  ;open urls
-                 [:-m [:open-chrome "https://access.mymind.com/cards"]]
-                 [:-g [:open-chrome "https://mail.google.com/mail/u/0/#inbox"]]
-                 [:-t [:open-chrome "https://twitter.com" "https://twitter.com"]]
-                 [:-y [:open-chrome "https://youtube.com"]]
-                 [:-k [:open-chrome "https://github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
-                 [:-l [:open-chrome "http://localhost:3000"]]
-                 [:-n [:open-chrome "https://next.egghead.io"]]
+                 [:-m [:open-chrome "access.mymind.com/cards"]]
+                 [:-g [:open-chrome "mail.google.com/mail/u/0/#inbox"]]
+                 [:-t [:open-chrome "twitter.com"]]
+                 [:-r [:open-chrome "reddit.com"]]
+                 [:-y [:open-chrome "youtube.com"]]
+                 [:-k [:open-chrome "github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
+                 [:-l [:open-chrome "localhost:3000"]]
+                 [:-n [:open-chrome "next.egghead.io"]]
+                 [:-e [:open-chrome "egghead.io"]]
+                 [:-u [:open-chrome "egghead.io/lessons/new"]];Upload
+                 [:-j [:open-chrome "js.new"]];
 ;
                  ]}
 
