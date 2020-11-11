@@ -242,6 +242,14 @@
                  ;
                  ]}
 
+        {:des "media"
+         :rules [:period-mode
+                 [:-s :rewind];
+                 [:-t :play_or_pause];
+                 [:-d :fastforward];
+                 ;
+                 ]}
+
         {:des "testing thumb chords"
          :rules [:f24-shift-mode
                  [:a "say poop"]
@@ -440,7 +448,7 @@
         {:des "open files"
          :rules [:semicolon-mode
                  [:-c [:code-project "~/.config"]]
-                 [:-k [:code-project "~/.dotfiles/karabiner/"]]
+                 [:-k [:code-project "~/.dotfiles/karabiner/" "~/.dotfiles/karabiner/karabiner.edn"]]
                  [:-b [:code-project "~/.bin"]]
                  [:-z  [:code-project "~/.zfunc"]]
                  [:-r  [:code-project "~/.zshrc"]]
@@ -722,7 +730,7 @@
                  [:-d :!S4]; $ dollar
                  [:-p :!S5]; % percent
                  [:-c :!S6]; ^ caret
-                 [:-s :!S7]; & ampedSand
+                 [:-s :!S7]; & amperSand
                  [:-b :!S8]; * bullet
                  ; 
                  ]}
