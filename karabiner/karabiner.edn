@@ -498,7 +498,7 @@
                  [:-b [:paste "😊"]] ;blush
                  [:-c [:paste "😢"]] ;cry
                  [:-d [:paste "🧐"]] ;dignified
-                 [:-e :emoji_picker] ;eyes
+                 [:-e :emoji_picker] ;
                  [:-f [:paste "🤦‍♂️"]] ;facepalm
                  [:-g [:paste "😬"]] ;grimace
                  [:-h [:paste "😍"]] ;heart-eyes
@@ -507,14 +507,14 @@
                  [:-k [:paste ""]] ;
                  [:-l [:paste "❤️"]] ;love
                  [:-m [:paste "🤯"]] ;mind blown
-                 [:-n [:paste "🤓"]] ;nerd
+                 [:-n :emoji_picker] ;
                  [:-o [:paste "💩"]] ;pOop
                  [:-p [:paste "🎉"]] ;party
                  [:-s [:paste "🙂"]] ;smile
                  [:-t [:paste "🏆"]] ;trophy
-                 [:-u [:paste ""]] ;
+                 [:-u [:paste "🤷‍♂️"]] ;shrUg
                  [:-v [:paste "😎"]] ;very cool
-                 [:-w [:paste "😅"]] ;sWeat
+                 [:-w [:paste "😉"]] ;wink:
                  [:-x [:paste ""]] ;
                  [:-y [:paste ""]] ;
                  ;
@@ -537,11 +537,16 @@
         ;   [:f [:alfred "google" "com.johnlindquist.google"]] ;Search Google
           [:-g [:alfred "github" "de.gh01.alfred.github" " "]]
           [:-y [:alfred "giphy" "dev.kejadlen.giphy" " "]]
-          [:-f :!!t]
+        ;;   [:-f :!!t]
           [:-l :!!l]
           [:-i [:launch "iTerm"]]
           ;restart karabiner
           [:-k "launchctl kickstart -k org.pqrs.karabiner.karabiner_console_user_server"]
+          [:-m [:launch "Music"]]
+          [:-s [:launch "Slack"]]
+          [:-b [:launch "Basecamp 3"]]
+          [:-d [:launch "Discord"]]
+          [:-f [:launch "Front"]]
                  ;
           ]}
 
