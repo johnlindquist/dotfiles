@@ -73,6 +73,9 @@
        :focus_terminal {:key :j :modi :command}
        :new_terminal {:key :grave_accent_and_tilde :modi :ts}; !TS`
        
+       :open_next_editor {:key :right_arrow :modi :co}
+       :open_prev_editor {:key :left_arrow :modi :co}
+       
        :split_window {:key :backslash :modi :command}; !Cbackslash
 
        :toggle_sidebar {:key :b :modi :command} ;!Cb
@@ -105,6 +108,7 @@
 
        ;chrome
        :open_dev_tools {:key :i :modi :co} ;:!COl
+       :chrome_full_screen {:key :f :modi :ct}
 
        ;
        }
@@ -154,7 +158,9 @@
              :zsh "zsh ~/.zfunc/'%s'"
              :print "osascript -e '
                         set x to do shell script \". ~/.jsrc; %s\"
-                        tell application \"System Events\" to keystroke x
+                        tell application \"System Events\" 
+                            to keystroke x
+                        end tell
                      '"
              :modify "osascript -e '
                         tell application \"System Events\" to keystroke \"c\" using {command down}
@@ -164,6 +170,10 @@
                         set the clipboard to output                    
                         tell application \"System Events\" to keystroke \"v\" using {command down}
                      '"
+              :test "osascript -e 'say \"poop\"'"
+              :query "osascript -e '
+                      tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"scripted-list\" in workflow \"com.johnlindquist.scripted-list\" with argument \"%s\"
+                      '"
              ;
              }
 
@@ -200,7 +210,7 @@
              :period-mode {:key :period}
              :tab-mode {:key :tab}
 
-             :q-mode {:key :q}
+             :query-mode {:key :q}
 
              :hyphen-mode {:key :hyphen :alone {:key :hyphen}}
 
@@ -208,7 +218,6 @@
              :s-mode {:key :s}
              :d-mode {:key :d}
              :f-mode {:key :f}
-             :g-mode {:key :g}
              :j-mode {:key :j}
 
              :z-mode {:key :z}
@@ -217,11 +226,15 @@
              :slash-mode {:key :slash}
 
              :semicolon-mode {:key :semicolon}
+             :backslash-mode {:key :backslash}
 
              :spacebar-mode {:key :spacebar}
 
-             :print-mode {:key :u} ;"p" in qwerty
+             :editor-mode {:key :g}
+             :print-mode {:key :u} ;"p" in colemak
              :modify-mode {:key :m} ;
+             :wrap-mode {:key :w} ;
+             :open-mode {:key :semicolon}; "o" in colemak
  ;
              }
  :devices {;; Note - I'm currently using a Kinesis Advantage keyboard for my defaults
@@ -230,16 +243,38 @@
            ;
            }
  :main [;
+        {:des "query"
+         :rules [:query-mode
+                 [:-s [:query "synonyms"]]
+                 [:-d [:query "describe"]]
+                 [:-o [:query "antonyms"]] ;
+                 ]
+         ;
+         }
         {:des "print"
          :rules [:print-mode
                  [:-u [:print "hello"]];
                  ;
                  ]}
 
+        {:des "editor"
+         :rules [:editor-mode
+                 [:-h :open_prev_editor]
+                 [:-i :open_next_editor]
+                 ;
+                 ]
+         }
+        {:des "wrap"
+         :rules [:wrap-mode
+                 [:-m [:modify "wrap-markdown-link"]]
+                 ; [test]()
+                 ]
+         }
         {:des "modify"
          :rules [:modify-mode
                  [:-t [:modify "title-case"]];
-                 ;
+                 
+                 ;hello world
                  ]}
 
         {:des "media"
@@ -306,7 +341,7 @@
                  [:-a :toggle_sidebar]
 
                  ;trackpad
-
+                 
                  ;trackpad 2
                  [:condi :code ["multitouch_extension_finger_count_total" 2]]
                  [:-t [:button1 :f2]]
@@ -362,7 +397,7 @@
                  [:equal_sign :!C2]
 
                 ;;  [:g [:button1 :button1]]
-
+                 
 
                  [:e :!Stab]
                  [:r :!COp]
@@ -371,7 +406,7 @@
                  [:delete_or_backspace [:button1 :delete_or_backspace]]
                  [:f1 :!C4]
                  ;;  
-
+                 
                  ;trackpad 2
                  [:condi :ableton ["multitouch_extension_finger_count_total" 2]]
                  [:a :!COb]
@@ -420,7 +455,7 @@
                  [:c [:button1 :!Cc]]
                  [:v [:button1 :!Cv]]
                 ;;  [:##f :button2]
-
+                 
                  ;trackpad 3
                  [:condi ["multitouch_extension_finger_count_total" 3]]
                  [:d :take_screenshot]
@@ -429,7 +464,7 @@
                 ;;  [:s :!Cleft_arrow]
                 ;;  [:d :!Cright_arrow]
                 ;;  [:f :!COright_arrow]
-
+                 
                  ;trackpad 4
                  [:condi ["multitouch_extension_finger_count_total" 4]]
                  [:##f :return_or_enter]
@@ -440,25 +475,26 @@
          :rules [:quote-mode
                  [:-c [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]]  ;console.log()
                  [:-n [:c :l :a :s :s :!Sn :a :m :e :equal_sign :!Squote :!Squote :left_arrow]] ;className="" 
+                ;;  [:-l [:open_bracket :a :l :t :close_bracket :open_paren :close_paren :left_arrow :left_arrow]] ;[]()
                  [:-e [:type "johnlindquist@egghead.io"]]
                  [:-g [:type "johnlindquist@gmail.com"]]
                  [:-s [:type "johnlindquist+spam@gmail.com"]]
                  [:-j [:type "johnlindquist"]]]}
 
         {:des "open files"
-         :rules [:semicolon-mode
+         :rules [:open-mode
                  [:-c [:code-project "~/.config"]]
                  [:-k [:code-project "~/.dotfiles/karabiner/" "~/.dotfiles/karabiner/karabiner.edn"]]
                  [:-b [:code-project "~/.bin"]]
                  [:-z  [:code-project "~/.zfunc"]]
                  [:-r  [:code-project "~/.zshrc"]]
                  [:-j  [:code-project "~/.js"]]
-                 [:-a [:code-project "~/projects/automatoes.com"]]
-                 [:-l [:code-project "~/projects/automatoes.com/_layouts"]]
+                ;;  [:-a [:code-project "~/projects/automatoes.com"]]
+                ;;  [:-l [:code-project "~/projects/automatoes.com/_layouts"]]
                  [:-e [:code-project "~/projects/egghead-io-nextjs"]]
                  [:-r [:code-project "~/projects/egghead-rails"]]
                  [:-t [:zsh "thoughts"]] ;a script that creates a new journal mdx file and open in code
-
+                 
                  ;
                  ]}
 
@@ -486,6 +522,9 @@
                  [:-d :open_dev_tools]
                  [:-a :!COleft_arrow]
                  [:-t :!COright_arrow]
+                 
+                 [:condi :chrome :escape-mode]
+                 [:-f :chrome_full_screen]
                 ;;  [:grave_accent_and_tilde :a nil {:delayed {:invoked [:y] :canceled [:x]}}]
                  ;
                  ;
@@ -516,7 +555,7 @@
                  [:-v [:paste "😎"]] ;very cool
                  [:-w [:paste "😉"]] ;wink:
                  [:-x [:paste ""]] ;
-                 [:-y [:paste ""]] ;
+                 [:-y [:paste "😅"]] ;sweatY
                  ;
                  ]}
 
@@ -542,11 +581,14 @@
           [:-i [:launch "iTerm"]]
           ;restart karabiner
           [:-k "launchctl kickstart -k org.pqrs.karabiner.karabiner_console_user_server"]
-          [:-m [:launch "Music"]]
+          [:-m [:launch "YouTube Music"]]
           [:-s [:launch "Slack"]]
           [:-b [:launch "Basecamp 3"]]
           [:-d [:launch "Discord"]]
-          [:-f [:launch "Front"]]
+          [:-f [:launch "Front"]];
+          [:-v [:launch "VLC"]];
+          [:-z [:launch "Visual Studio Code"]];viZ
+          [:comma [:launch "Messages"]];
                  ;
           ]}
 
@@ -585,7 +627,7 @@
 
                 ;;  [:##n :delete_or_backspace]
                 ;;  [:##period :delete_forward]
-
+                 
 
                  [:##y :!Cleft_arrow]
                  [:##o :!Cright_arrow]
@@ -621,6 +663,7 @@
 
                  [:##spacebar {:pkey :button1 :modi :left_command}]
                  [:##left_shift :##button2]
+                 
                  ;
                  ]}
 
@@ -641,6 +684,9 @@
 
                  [:left_shift :shrink_selection]
                  [:return_or_enter :insert_line_above]
+                 
+                 [:semicolon :expand_selection]
+                 [:quote :shrink_selection]
 
                  ;
                  ]}
@@ -665,9 +711,9 @@
                 ;  [:h {:mkey {:hwheel 60}}]
                 ;  [:j {:mkey {:vwheel 60}}]
                 ;  [:k {:mkey {:vwheel -60}}]
-
+                 
                 ;  [:l {:mkey {:hwheel -60}}]
-
+                 
                  [:##d :left_shift]
                  [:##s :left_command]
 
@@ -702,15 +748,15 @@
                  [:left_shift [:spacebar :equal_sign :spacebar]]; = 
                  [:q [:!S9 :!S0 :equal_sign :greater_than :spacebar]];()=> 
                  [:e [:!S9 :!S9 :!S0 :equal_sign :greater_than :spacebar :open_brace :close_brace :!S0 :left_arrow :left_arrow]];(()=> {})
-
+                 
                  [:g [:spacebar :equal_sign :greater_than :spacebar]]; => 
                  [:h [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:b [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:quote [:equal_sign :!Squote :!Squote :left_arrow]];=""
-
+                 
 
                  ;macros
-
+                 
 
                  ;
                  ]}
@@ -779,14 +825,14 @@
         ;;                                      :dorder :insensitive
         ;;                                      :uorder :insensitive
         ;;                                      }} {:set ["asdf-mode" 1]}]
-
+        
         ;;          :asdf-mode
         ;;          [:c [:c :o :n :s :o :l :e ] nil {:afterup {:set ["asdf-mode" 0]}}]
-
+        
         ;;          ;
         ;;          ]
         ;;  }
-
+        
 
         {:des "colemak"
          :rules [;
