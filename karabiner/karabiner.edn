@@ -86,7 +86,7 @@
        :go_to_file {:key :p :modi :command}
        :insert_line_below {:key :return_or_enter :modi :command} ;!Creturn_or_enter
        :insert_line_above {:key :return_or_enter :modi :cs} ;!Creturn_or_enter
-       :wrap_selection {:key :p :modi :hyper}
+       :wrap_emmet {:key :p :modi :hyper}
 
        ;named symbols
        :open_brace {:key :open_bracket :modi :shift}
@@ -100,7 +100,7 @@
 
        :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
 
-       :open_onepassword {:key :a :modi :super-hyper} ;!OCbackslash
+       :open_1password {:key :p :modi :super-hyper} ;!OCbackslash
 
        :take_screenshot {:key :6 :modi :cs} ;!CS6
 
@@ -193,7 +193,7 @@
           :caps_lock-mode {:key :caps_lock :alone {:key :escape}}
           :escape-mode {:key :escape :alone {:key :escape}}
           :f23-mode {:key :f23 :alone  {:key :vk_none}}
-          :f24-mode {:key :f24 :alone {:key :spacebar :modi :left_option}}
+          :launch-mode {:key :f24 :alone {:key :spacebar :modi :left_option}}
           :non-mode {:key :non_us_backslash :alone {:key :non_us_backslash}}
           :num-mode {:key :keypad_num_lock :alone {:key :vk_none}}
           :shift-mode {:key :shift}
@@ -201,13 +201,13 @@
           :tilde-mode {:key :grave_accent_and_tilde :alone {:key :grave_accent_and_tilde}}
 
           ;testing left thumb + right thumb
-          :f24-shift-mode {:key :left_shift :condi :f24-mode}
+          :f24-shift-mode {:key :left_shift :condi :launch-mode}
 
           ;
           }
  :simlayers {;
-             :quote-mode {:key :quote}
-             :period-mode {:key :period}
+             :snippet-mode {:key :quote}
+             :media-mode {:key :period}
              :tab-mode {:key :tab}
 
              :query-mode {:key :q}
@@ -217,8 +217,8 @@
              :a-mode {:key :a}
              :s-mode {:key :s}
              :d-mode {:key :d}
-             :f-mode {:key :f}
-             :j-mode {:key :j}
+             :movement-mode {:key :f}
+             :delete-mode {:key :j}
 
              :z-mode {:key :z}
 
@@ -230,7 +230,7 @@
 
              :spacebar-mode {:key :spacebar}
 
-             :editor-mode {:key :g}
+             :editor-mode {:key :e}
              :print-mode {:key :u} ;"p" in colemak
              :modify-mode {:key :m} ;
              :wrap-mode {:key :w} ;
@@ -243,11 +243,22 @@
            ;
            }
  :main [;
+        {:des "global"
+         :rules [[:f8 :toggle_screen_brush]
+                 ;
+                 ]} 
+        
         {:des "query"
          :rules [:query-mode
                  [:-s [:query "synonyms"]]
+                 [:-r [:query "rhyme"]]
+                 [:-l [:query "sounds-like"]];sounds Like
                  [:-d [:query "describe"]]
-                 [:-o [:query "antonyms"]] ;
+                 [:-o [:query "antonyms"]] ;antOnyms
+                 [:-l [:query "spell"]] ;spelL
+                 [:-t [:query "trigger"]] ;
+                 [:-n [:query "noun"]] ;
+                 [:-g [:alfred "google" "com.johnlindquist.google"]] ;Google
                  ]
          ;
          }
@@ -259,14 +270,15 @@
 
         {:des "editor"
          :rules [:editor-mode
-                 [:-h :open_prev_editor]
-                 [:-i :open_next_editor]
+                 [:-a :open_prev_editor]
+                 [:-t :open_next_editor]
                  ;
                  ]
          }
         {:des "wrap"
          :rules [:wrap-mode
                  [:-m [:modify "wrap-markdown-link"]]
+                 [:-e :wrap_emmet]
                  ; [test]()
                  ]
          }
@@ -278,7 +290,7 @@
                  ]}
 
         {:des "media"
-         :rules [:period-mode
+         :rules [:media-mode
                  [:-s :rewind];
                  [:-t :play_or_pause];
                  [:-d :fastforward];
@@ -317,9 +329,6 @@
                  [:left_option :left_option nil {:alone :focus_terminal}]
                  [:right_option :right_option nil {:alone :command_palette}]
                  [:right_control :right_control nil {:alone :go_to_file}]
-
-                 [:condi :code :slash-mode]
-                 [:w :wrap_selection]
 
                  ;view
                  ;note - I try to keep these on my left hand so I can keep my right on the mouse
@@ -472,7 +481,7 @@
                  ]}
 
         {:des "snippets"
-         :rules [:quote-mode
+         :rules [:snippet-mode
                  [:-c [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]]  ;console.log()
                  [:-n [:c :l :a :s :s :!Sn :a :m :e :equal_sign :!Squote :!Squote :left_arrow]] ;className="" 
                 ;;  [:-l [:open_bracket :a :l :t :close_bracket :open_paren :close_paren :left_arrow :left_arrow]] ;[]()
@@ -480,6 +489,7 @@
                  [:-g [:type "johnlindquist@gmail.com"]]
                  [:-s [:type "johnlindquist+spam@gmail.com"]]
                  [:-j [:type "johnlindquist"]]]}
+
 
         {:des "open files"
          :rules [:open-mode
@@ -534,27 +544,29 @@
         {:des "emoji"
          :rules [:z-mode
                  [:-a [:paste ""]] ;                
-                 [:-b [:paste "😊"]] ;blush
-                 [:-c [:paste "😢"]] ;cry
-                 [:-d [:paste "🧐"]] ;dignified
+                 [:-b [:paste "😊"]] ;blush😊
+                 [:-c [:paste "😢"]] ;cry😢
+                 [:-d [:paste "🧐"]] ;dignified 🧐😢
                  [:-e :emoji_picker] ;
-                 [:-f [:paste "🤦‍♂️"]] ;facepalm
+                 [:-f [:paste "🤦‍♂️"]] ;facepalm🤦‍♂️
                  [:-g [:paste "😬"]] ;grimace
                  [:-h [:paste "😍"]] ;heart-eyes
                  [:-i [:paste "👀"]] ;I
-                 [:-j [:paste ""]] ;
+                 [:-j [:paste "😂"]] ;joking
                  [:-k [:paste ""]] ;
                  [:-l [:paste "❤️"]] ;love
-                 [:-m [:paste "🤯"]] ;mind blown
+                 [:-m [:paste "🤯"]] ;mind blown 
                  [:-n :emoji_picker] ;
                  [:-o [:paste "💩"]] ;pOop
                  [:-p [:paste "🎉"]] ;party
+                 [:-q [:paste "🤫"]] ;quiet🤫
+                 [:-r [:paste "🏎"]] ;racecar🏎
                  [:-s [:paste "🙂"]] ;smile
                  [:-t [:paste "🏆"]] ;trophy
                  [:-u [:paste "🤷‍♂️"]] ;shrUg
                  [:-v [:paste "😎"]] ;very cool
                  [:-w [:paste "😉"]] ;wink:
-                 [:-x [:paste ""]] ;
+                 [:-x [:paste "😵"]] ;x-eyes
                  [:-y [:paste "😅"]] ;sweatY
                  ;
                  ]}
@@ -567,13 +579,12 @@
                  ;
                  ]}
 
-        {:des "alfred"
+        {:des "launch"
          :rules
-         [:f24-mode
-          [:-a :open_onepassword]
+         [:launch-mode
+          [:-p :open_1password]
           [:-c [:alfred "code" "com.vivaxy.alfred-workflow.open-in-vscode" " "]]
-          [:-t :!!d] ;Search Google
-        ;   [:f [:alfred "google" "com.johnlindquist.google"]] ;Search Google
+        ;;   [:-t :!!d] ;Search Google
           [:-g [:alfred "github" "de.gh01.alfred.github" " "]]
           [:-y [:alfred "giphy" "dev.kejadlen.giphy" " "]]
         ;;   [:-f :!!t]
@@ -593,14 +604,8 @@
           ]}
 
 
-        {:des "j-mode right hand"
-         :rules [:j-mode
-                 [:k :emoji_picker]
-                 ;
-                 ]}
-
         {:des "delete"
-         :rules [:j-mode
+         :rules [:delete-mode
                  [:hyphen :delete_line :code]
                  [:hyphen :!Cdelete_or_backspace]
                  [:a :!Odelete_or_backspace]
@@ -615,7 +620,7 @@
 
         {:des "homerow"
 
-         :rules [:f-mode
+         :rules [:movement-mode
 
                  [:##s :left_command]
                  [:##d :right_shift]
@@ -745,11 +750,11 @@
                  [:semicolon :greater_than]
 
                  ;symbol sequences
-                 [:left_shift [:spacebar :equal_sign :spacebar]]; = 
+                 [:left_shift [:spacebar :equal_sign :spacebar]]; =  =  =  =  =  =  =  =  =  =
                  [:q [:!S9 :!S0 :equal_sign :greater_than :spacebar]];()=> 
                  [:e [:!S9 :!S9 :!S0 :equal_sign :greater_than :spacebar :open_brace :close_brace :!S0 :left_arrow :left_arrow]];(()=> {})
                  
-                 [:g [:spacebar :equal_sign :greater_than :spacebar]]; => 
+                 [:g [:spacebar :equal_sign :greater_than :spacebar]]; =>  => ={} =""
                  [:h [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:b [:equal_sign :open_brace :close_brace :left_arrow]];={}
                  [:quote [:equal_sign :!Squote :!Squote :left_arrow]];=""
@@ -824,10 +829,10 @@
         ;;         [{:sim [:a :s :d :f] :simo {:interrupt false
         ;;                                      :dorder :insensitive
         ;;                                      :uorder :insensitive
-        ;;                                      }} {:set ["asdf-mode" 1]}]
+        ;;                                      }} {:set ["asdmovement-mode" 1]}]
         
-        ;;          :asdf-mode
-        ;;          [:c [:c :o :n :s :o :l :e ] nil {:afterup {:set ["asdf-mode" 0]}}]
+        ;;          :asdmovement-mode
+        ;;          [:c [:c :o :n :s :o :l :e ] nil {:afterup {:set ["asdmovement-mode" 0]}}]
         
         ;;          ;
         ;;          ]
@@ -868,7 +873,7 @@
 
 
 
-;; rule [:period ["period-mode" 1] nil {:afterup ["period-mode" 0] :alone :period}]
+;; rule [:period ["media-mode" 1] nil {:afterup ["media-mode" 0] :alone :period}]
 ;;       |_____| |_______________| |_| |_________________________________________|
 ;;        <from>    <to>      <conditions>         <other options>
 
