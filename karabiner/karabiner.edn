@@ -132,13 +132,11 @@
        :pretzel_play_or_pause {:key :p :modi :os}
        :pretzel_fastforward {:key :close_bracket :modi :os}
 
+       ;ableton
+       :add_midi_clip {:key :m :modi :cs};!CSm
        ;
        }
- :conditions {;
-              :code-1 [:code :multitouch_extension_finger_count_total]
-              ;
-              }
-
+ 
  :templates {;
              :new-note "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"new-note\" in workflow \"com.johnlindquist.new-note\" with argument \"\"'"
              :new-thought ". ~/.jsrc; new-thought"
@@ -270,55 +268,7 @@
            ;
            }
  :main [;
-           {:des "trackpad"
-         :rules [;
-                 :multitouch_extension_finger_count_total
-                 [:f :button1]
-
-                 [:grave_accent_and_tilde :!Tgrave_accent_and_tilde]
-                 [:w :!Cw]
-                 [:e :!Ct]
-                 [:r :!Cl]
-
-                 [:a {:pkey :button1 :modi :left_option}]
-                 [:s :button2]
-
-                 [:d {:pkey :button1 :modi :left_shift}]
-                 ;Allow "a" to be left_option in other apps
-                 [:g {:pkey :button1 :modi :left_command}]
-
-                 [:z :!Cz]
-                ;  [:non_us_backslash :!CSz]
-                 [:x :!Cx]
-                 [:c :!Cc]
-                 [:v :!Cv]
-                 [:b :!Cb]
-
-                 [:delete [:button1 :delete]]
-
-                 ;trackpad 2
-                 [:condi ["multitouch_extension_finger_count_total" 2]]
-
-                 [:x [:button1 :!Cx]]
-                 [:c [:button1 :!Cc]]
-                 [:v [:button1 :!Cv]]
-                 [:left_command :return_or_enter]
-                ;;  [:##f :button2]
-
-                 ;trackpad 3
-                 [:condi ["multitouch_extension_finger_count_total" 3]]
-                 [:d :take_screenshot]
-
-                ;;  [:a :!COleft_arrow]
-                ;;  [:s :!Cleft_arrow]
-                ;;  [:d :!Cright_arrow]
-                ;;  [:f :!COright_arrow]
-
-                 ;trackpad 4
-                 [:condi ["multitouch_extension_finger_count_total" 4]]
-                 [:##f :return_or_enter]
-                 ;
-                 ]}
+        
         {:des "global"
          :rules [[:f8 :toggle_screen_brush]
                  ;
@@ -351,7 +301,9 @@
          }
         {:des "print"
          :rules [:print-mode
-                 [:-u [:print "hello"]];
+                 [:-u [:print "url"]];
+                 [:-m [:print "markdown"]];
+                 [:-n [:print "name"]];
                  [:-j [:print "joke"]]; 
                  [:-e [:alfred "emmet" "com.johnlindquist.emmet"]] ;
                  ;
@@ -492,7 +444,7 @@
                  ; trackpad
                  [:condi :ableton :multitouch_extension_finger_count_total]
                  [:left_option [:!Ce :!Cj]]
-                 [:b :!CSm]
+                 [:b :add_midi_clip]
                  [:left_command :!C4]
                  [:q [:q :q]]
                  [:w :!COl]
@@ -528,7 +480,55 @@
                  ;
                  ]}
 
-     
+        {:des "trackpad"
+         :rules [;
+                 :multitouch_extension_finger_count_total
+                 [:f :button1]
+
+                 [:grave_accent_and_tilde :!Tgrave_accent_and_tilde]
+                 [:w :!Cw]
+                 [:e :!Ct]
+                 [:r :!Cl]
+
+                 [:a {:pkey :button1 :modi :left_option}]
+                 [:s :button2]
+
+                 [:d {:pkey :button1 :modi :left_shift}]
+                 ;Allow "a" to be left_option in other apps
+                 [:g {:pkey :button1 :modi :left_command}]
+
+                 [:z :!Cz]
+                ;  [:non_us_backslash :!CSz]
+                 [:x :!Cx]
+                 [:c :!Cc]
+                 [:v :!Cv]
+                ;;  [:b :!Cb]
+
+                 [:delete [:button1 :delete]]
+
+                 ;trackpad 2
+                 [:condi ["multitouch_extension_finger_count_total" 2]]
+
+                 [:x [:button1 :!Cx]]
+                 [:c [:button1 :!Cc]]
+                 [:v [:button1 :!Cv]]
+                 [:left_command :return_or_enter]
+                ;;  [:##f :button2]
+
+                 ;trackpad 3
+                 [:condi ["multitouch_extension_finger_count_total" 3]]
+                 [:d :take_screenshot]
+
+                ;;  [:a :!COleft_arrow]
+                ;;  [:s :!Cleft_arrow]
+                ;;  [:d :!Cright_arrow]
+                ;;  [:f :!COright_arrow]
+
+                 ;trackpad 4
+                 [:condi ["multitouch_extension_finger_count_total" 4]]
+                 [:##f :return_or_enter]
+                 ;
+                 ]}
 
         {:des "snippets"
          :rules [:snippet-mode
@@ -757,16 +757,13 @@
                 ;;   [:##k {:mkey {:vwheel -60}}]
 
                 ;  [:l {:mkey {:hwheel -60}}]
+                 [:##d :left_shift]
 
 
-                 [:##y :home]
-
-                 [:##o :end]
-
-                 [:##h :!Tleft_arrow]
-                ;;  [:##j :!Tdown_arrow]
-                ;;  [:##k :!Tup_arrow]
-                 [:##l :!Tright_arrow]
+                 [:##h :!Fleft_arrow]
+                 [:##j :!Fdown_arrow]
+                 [:##k :!Fup_arrow]
+                 [:##l :!Fright_arrow]
                 ;  ;
                  ]}
 
