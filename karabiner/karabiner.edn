@@ -236,12 +236,13 @@
              ;end top row
 
              ;begin homerow simlayer
-             :fn-mode {:key :hyphen :alone {:key :hyphen}}
-             :opt-mode {:key :a}
-             :shift-opt-mode {:key :s}; "r" in colemak
-             :shift-mode {:key :d}; "s" in colemak
-             :movement-mode {:key :f}; "t" in colemak
-             :cursor-mode {:key :g}; "d" in colemak
+             ;I use my trackpad with these keys as well. The :condi makes sure I'm not touching the trackpad
+             :fn-mode {:key :hyphen :alone {:key :hyphen} :condi ["multitouch_extension_finger_count_total" 0]}
+             :opt-mode {:key :a  :condi ["multitouch_extension_finger_count_total" 0]}
+             :shift-opt-mode {:key :s :condi ["multitouch_extension_finger_count_total" 0]}; "r" in colemak
+             :shift-mode {:key :d :condi ["multitouch_extension_finger_count_total" 0]}; "s" in colemak
+             :movement-mode {:key :f :condi ["multitouch_extension_finger_count_total" 0]}; "t" in colemak
+             :cursor-mode {:key :g  :condi ["multitouch_extension_finger_count_total" 0]}; "d" in colemak
              :delete-mode {:key :j}; "n" in colemak
              :editor-mode {:key :k}; "e" in colemak
              :l-mode {:key :l}; "i" in colemak
@@ -384,6 +385,7 @@
 
         {:des "movement"
          :rules [:movement-mode
+                 
                  [:##y :!Cleft_arrow]
                  [:##o :!Cright_arrow]
 
