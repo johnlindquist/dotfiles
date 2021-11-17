@@ -1,0 +1,342 @@
+;; Pro tip: Search Github for karabiner.edn configuration files for many, many examples:
+;; https://github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code
+
+;; rule [:period ["period-mode" 1] nil {:afterup ["period-mode" 0] :alone :period}]
+;;       |_____| |_______________| |_| |_________________________________________|
+;;        <from>    <to>      <conditions>         <other options>
+;;        
+;; !  | means mandatory
+;; #  | means optional
+;; C  | left_command
+;; T  | left_control
+;; O  | left_option
+;; S  | left_shift
+;; F  | fn
+;; Q  | right_command
+;; W  | right_control
+;; E  | right_option
+;; R  | right_shift
+;; 
+;; !! | mandatory command + control + optional + shift (hyper)
+;; ## | optional any
+{:default true
+
+ ;Configure "one-shots" timeout. Allows you to add shortcuts to left_command, right_option, etc
+ :alone 500 ;Cancels after 500 ms. Default is 1000
+ 
+ ;Configure "double press" actions timeout, e.g., double-tapping shift to set a mode. I personally ignore this feature.
+ :delay 200 ;Window in which you have to press the second key. Default is 500
+ 
+ ;A timeout before key repeat starts firing. If you hold "o" for 500+ ms, then it will type "oooooo"
+ :held 500
+ 
+ ;Configure simlayer timeout. I use simlayers _A LOT_...
+ :simlayer-threshold 200 ;⚠️ You have to press the second key within the 200 ms window or else it types normally
+
+
+
+ :tos {
+       ;Aliases for common shifted keys
+       :open_brace {:key :open_bracket :modi :shift}
+       :close_brace {:key :close_bracket :modi :shift}
+
+       :open_paren {:key :9 :modi :shift}
+       :close_paren {:key :0 :modi :shift}
+
+       :less_than {:key :comma :modi :shift}
+       :greater_than {:key :period :modi :shift}
+
+       ;shortcuts
+       
+       ;code
+       :autocomplete {:key :spacebar :modi :control}
+       :command_palette {:key :p :modi [:command :shift]}
+       :delete_line {:key :k :modi [:command :shift]} 
+       :rename {:key :f2}
+
+       ;emoji
+       :emoji_picker {:key :spacebar :modi [:command :option]}
+
+       ;chrome
+       :new_tab {:key :t :modi :command}
+       :close_tab {:key :w :modi :command}
+       :open_dev_tools {:key :i :modi [:command :option]}
+       :chrome_full_screen {:key :f :modi [:command :control]}
+       :focus_omnibar {:key :l :modi :command}}
+ 
+ :templates {;
+             :alfred "osascript -e 'tell application \"Alfred 4\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'"
+             :code-project "osascript -e 'tell application \"Visual Studio Code\" to activate' &&
+                            open -a 'Visual Studio Code' %s -g %s
+                            "
+             :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
+             :launch "osascript -e 'tell application \"%s\" to activate'"
+             ;You can extract these to shell scripts: https://johnlindquist.com/use-applescript-in-a-shell-script/
+             :chrome-tab "osascript -e '
+                        set address to \"%s\"
+                        
+                        tell application \"Google Chrome\"
+                           activate
+                                if not (exists window 1) then reopen
+                                repeat with w in windows
+                                        set i to 1
+                                        repeat with t in tabs of w
+                                        if URL of t contains address then
+                                                set active tab index of w to i
+                                                set index of w to 1
+                                                return
+                                        end if
+                                        set i to i + 1
+                                        end repeat
+                                end repeat
+                                open location \"http://\" & address
+                        end tell
+                           '"
+             :paste "osascript -e '
+                        set the clipboard to \"%s\"
+                        tell application \"System Events\"
+                                keystroke \"v\" using command down
+                        end tell
+                '"
+             }
+
+ :applications {;
+                :chrome ["com.google.Chrome"]
+                :code ["com.microsoft.VSCode"]
+                ;
+                }
+ :layers {;
+          :movement-mode {:key :caps_lock :alone {:key :escape}}
+          :tab-mode {:key :tab :alone {:key :tab}}          
+          }
+ ;Use simlayers on keys you also use for typing normal characters. @see simlayer-threshold
+ :simlayers {;
+             :delete-mode {:key :z}
+             :character-mode {:key :semicolon}
+             :snippet-mode {:key :quote}
+             
+             :emoji-mode {:key :period}
+             :command-mode {:key :slash}
+             :launch-mode {:key :comma}
+             }
+ :devices {
+           ; You can find devices in the Karabiner "Event Viewer" devices tab
+           :macbook [{:product_id 832 :vendor_id 1452}]
+           }
+ :main [;
+        ;NOTE - Higher rules take priority
+        {:des "code"
+         :rules [:code
+                 [:left_command :left_command nil {:alone :focus_editor}]
+                 [:left_option :left_option nil {:alone :focus_terminal}]
+                 [:right_option :right_option nil {:alone :command_palette}]
+                 [:right_control :right_control nil {:alone :go_to_file}]
+                 
+                 :command-mode
+                 [:r :rename]
+                 ]}
+
+        {:des "chrome"
+         :rules [:chrome
+                 [:left_command :left_command nil {:alone [:new_tab]}]
+                 [:left_option :left_option nil {:alone [:close_tab]}]
+                 [:right_option :focus_omnibar]
+                 [:right_control :left_option nil {:alone [:!CSt]}]
+                 ;Press right_command while holding left_command
+                 [{:key :right_command :modi :left_command} :open_dev_tools]
+                 ]}
+
+
+        {:des "snippets"
+         :rules [:snippet-mode
+                 [:c [:c :o :n :s :o :l :e :period :l :o :g :open_paren :close_paren :left_arrow]]  ;console.log()
+                 [:n [:c :l :a :s :s :!Sn :a :m :e :equal_sign :!Squote :!Squote :left_arrow]] ;className="" 
+                 ;
+                 ]}
+
+
+        {:des "open files"
+         :rules [:open-mode
+                 [:k [:code-project "~/.config/karabiner" "~/.config/karabiner/karabiner.edn"]]
+                 ;
+                 ]}
+
+;
+        {:des "emoji"
+         :rules [:emoji-mode
+                 [:a [:paste ""]] ;                
+                 [:b [:paste "😊"]] ;blush
+                 [:c [:paste "👏"]] ;clap
+                 [:d [:paste "🧐"]] ;dignified
+                 [:e :emoji_picker]
+                 [:f [:paste "🔥"]] ;fire
+                 [:g [:paste "😬"]] ;grimace
+                 [:h [:paste "😍"]] ;heart-eyes
+                 [:i [:paste "👀"]] ;I
+                 [:j [:paste "😂"]] ;joking
+                 [:k [:paste ""]] ;
+                 [:l [:paste "❤️"]] ;love
+                 [:m [:paste "🤯"]] ;mind blown 
+                 [:n :emoji_picker] ;
+                 [:o [:paste "💩"]] ;pOop
+                 [:p [:paste "🎉"]] ;party
+                 [:q [:paste "🤫"]] ;quiet
+                 [:r [:paste "🏎"]] ;racecar
+                 [:s [:paste "😢"]] ;sad
+                 [:t [:paste "🤔"]] ;thinking
+                 [:u [:paste "🤷‍♂️"]] ;shrUg
+                 [:v [:paste "😎"]] ;very cool
+                 [:w [:paste "😉"]] ;wink:
+                 [:x [:paste "😵"]] ;x-eyes
+                 [:y [:paste "😅"]] ;sweatY
+                 [:left_command [:paste "👍"]]
+                 [:left_option [:paste "👎"]]
+                 ;
+                 ]}
+
+        {:des "launch"
+         :rules
+         [:launch-mode
+          [:i [:launch "iTerm"]]
+          [:b [:launch "Chrome"]] ;Browser
+          [:c [:launch "Visual Studio Code"]];
+          [:comma [:launch "Messages"]];
+                 ;
+          ]}
+
+
+        {:des "delete"
+         :rules [:delete-mode
+                 [:hyphen :delete_line :code]
+                 [:hyphen :!Cdelete_or_backspace]
+                 [:a :!Odelete_or_backspace nil {:held :delete_line}]
+                 [:s :delete_or_backspace]
+                 [:d :delete_forward]
+                 [:f :!Odelete_forward]
+                 [:g :!Cdelete_forward]
+
+                 ;
+                 ]}
+        {:des "homerow cursor"
+         :rules [:cursor-mode
+                 [:h :cursor_find_match]
+                 [:j :cursor_below]
+                 [:k :cursor_above]
+                 [:-j :acejump]
+                 [:-l :acejump_line]
+                 [:-m :acejump_multi]
+                 [:left_shift :acejump_selection]]}
+
+        {:des "homerow movement"
+
+         :rules [:movement-mode
+                 [:##y :!Cleft_arrow]
+                 [:##o :!Cright_arrow]
+
+                 [:##h :left_arrow]
+                 [:##j :down_arrow]
+                 [:##k :up_arrow]
+                 [:##l :right_arrow]
+
+                 [:semicolon :autocomplete]
+
+                 [:return_or_enter :insert_line_below]
+
+
+
+
+                 [:left_shift :expand_selection]
+                 ;
+                 ]}
+
+        {:des "homerow alt+shift"
+         :rules [:alt-shift-mode
+                 [:##h :!OSleft_arrow]
+                 [:##j :!OSdown_arrow]
+                 [:##k :!OSup_arrow]
+                 [:##l :!OSright_arrow]
+
+                 [:##spacebar {:pkey :button1 :modi :left_command}]
+                 [:##left_shift :##button2]
+
+                 ;
+                 ]}
+
+        {:des "homerow shift"
+         :rules [:d-mode
+                 [:##y :!Shome]
+                 [:##o :!Send]
+
+                 [:##h :!Sleft_arrow]
+                 [:##j :!Sdown_arrow]
+                 [:##k :!Sup_arrow]
+                 [:##l :!Sright_arrow]
+
+
+                 [:left_shift :shrink_selection]
+                 [:return_or_enter :insert_line_above]
+
+                 [:semicolon :expand_selection]
+                 [:quote :shrink_selection]
+
+                 ;
+                 ]}
+        {:des "homerow alt"
+         :rules [:alt-mode
+                 [:##y :home]
+
+                 [:##o :end]
+
+                 [:##h :!Oleft_arrow]
+                 [:##j :!Odown_arrow]
+                 [:##k :!Oup_arrow]
+                 [:##l :!Oright_arrow]
+                 ;
+                 ]}
+        {:des "homerow control"
+         :rules [:hyphen-mode
+            
+                 [:##d :left_shift]
+
+
+                 [:##h :!Fleft_arrow]
+                 [:##j :!Fdown_arrow]
+                 [:##k :!Fup_arrow]
+                 [:##l :!Fright_arrow]
+                ;  ;
+                 ]}
+
+
+        {:des "characters"
+         :rules [:character-mode
+                 ;symbols [](){}<>
+                 [:a :open_bracket]
+                 [:s :close_bracket]
+
+                 [:d :open_paren]
+                 [:f :close_paren]
+
+                 [:j :open_brace]
+                 [:k :close_brace]
+
+                 ;symbol sequences
+                 [:l [:!S9 :!S0 :equal_sign :greater_than :spacebar]]; ()=>  Lambda
+                 [:t [:!S4 :!Sopen_bracket :!Sclose_bracket :left_arrow]]; ${}  Template
+                 [:w [:!S9 :!S9 :!S0 :equal_sign :greater_than :spacebar :open_brace :close_brace :!S0 :left_arrow :left_arrow]];(()=> {}) Wrapped Lambda
+                 [:spacebar [:spacebar :equal_sign :spacebar]]; = 
+
+                 [:r [:spacebar :equal_sign :greater_than :spacebar]]; => aRrow
+                 [:h [:equal_sign :open_brace :close_brace :left_arrow]];={} Html
+                 ]}
+
+        {:des "launch-mode"
+         :rules [:launch-mode
+                 ;open urls
+                 [:e [:open-chrome "egghead.io"]]; 😉
+                 [:g [:open-chrome "mail.google.com"]]
+                 [:j [:open-chrome "js.new"]];
+                 ;A github search for karabiner.edn files
+                 [:k [:open-chrome "github.com/search?q=extension%3A.edn+filename%3Akarabiner.edn&type=Code&ref=advsearch&l=&l="]]
+                 [:l [:open-chrome "localhost:3000"]]
+                 ]}
+        ]}
