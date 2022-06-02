@@ -926,7 +926,7 @@
           [:1 :open_1password]
         ;;   [:-a [:launch "Activity Monitor"]]
         ;;   [:-o [:launch "Loopback"]]
-          [:-t ["~/.kit/kar app-launcher"]]
+          [:-t ["~/.kit/kar ~/.kit/main/app-launcher.js"]]
         ;;   [:-e [:launch "Karabiner-EventViewer"]]
           [:-c [:alfred "code" "com.vivaxy.workflow.open-in-vscode" " "]]
           [:-d [:launch "Discord"]]
@@ -949,7 +949,7 @@
          [:escape-mode
           ;
           [:-t ["~/.kit/kar todo-pad"]]
-          [:-a ["~/.kit/kar app-launcher"]]
+          [:-a ["~/.kit/kar ~/.kit/main/app-launcher.js"]]
           [:-c ["~/.kit/kar auto-center-app"]]
           [:-n ["~/.kit/kar journal"]]
           [:-b ["~/.kit/kar bugs"]]
