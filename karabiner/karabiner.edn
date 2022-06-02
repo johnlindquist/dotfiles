@@ -1,5 +1,4 @@
-{
- ;       
+{;       
  :default true
  :alone 500
  :delay 200
@@ -148,7 +147,7 @@
 
        :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
 
-       :open_1password {:key :p :modi :hyper} ;!OCbackslash
+       :open_1password {:key :backslash :modi :command} ;!OCbackslash
 
        :take_screenshot {:key :6 :modi :cs} ;!CS6
 
