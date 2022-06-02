@@ -256,6 +256,7 @@
           }
  :simlayers {;
              ;top row
+             :zero-mode {:key :0}
              :quick-mode {:key :q}
              :close-mode {:key :w} ;
              :finder-mode {:key :e}; "f" in colemak
