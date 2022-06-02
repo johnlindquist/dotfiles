@@ -81,7 +81,6 @@
        :close_others [{:key :t :modi :co}]
        :developer_tools [{:key :i :modi :co}]
 
-
        :delete_line {:key :k :modi :cs} ;!CSk
 
        :find_in_project {:key :f :modi :cs} ;!CSf
