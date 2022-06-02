@@ -777,7 +777,7 @@
 
 
                 ;;  [:left_shift :!Cb]
-                 [:-a :toggle_sidebar]
+                 ; [:-a :toggle_sidebar]
 
                  ;trackpad
                  [:condi :code ["multitouch_extension_finger_count_total" 1]]
