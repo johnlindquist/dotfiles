@@ -562,7 +562,8 @@
         {:des "open"
          :rules [:open-mode
                 ;;  [:-c [:code-project "~/.config"]]                 
-                 [:-k ["~/.kit/kar update-karabiner-config"]] ;; 
+                 [:-k ["~/.kit/kar update-karabiner-config"]] ;;                  
+                ;;  [:-k ["~/.kit/kar update-karabiner-config"]] ;; 
                 ;;  [:-b [:code-project "~/.bin"]]
                 ;;  [:-z  [:code-project "~/.zfunc"]]
                 ;;  [:-r  [:code-project "~/.zshrc"]]
@@ -570,7 +571,7 @@
                 ;;  [:-l [:code-project "~/projects/automatoes.com/_layouts"]]
                 ;;  [:-e [:code-project "~/projects/egghead-io-nextjs"]]
                 ;;  [:-r [:code-project "~/projects/egghead-rails"]]
-                 [:-t [:code-project "~/projects/thoughts"]]
+                ;;  [:-t [:code-project "~/projects/thoughts"]]
                 ;;  [:-s ["open simple://scripts/simple-switch"]] ; --disable-renderer-accessibility
                 ;;  [:-h ["open simple://scripts/say-hi \"yo\""]]
                 ;;  [:-p [:pad]]
@@ -831,7 +832,6 @@
                  [:spacebar :spacebar]
                  [:d [{:pkey :button1 :modi :left_shift} :!Cdelete_or_backspace]]
                  [:a :!COsemicolon]
-
                  ;
                  ]}
 
@@ -921,15 +921,6 @@
                  [:2 ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/releases"]]
                  [:3 ["~/.kenv/bin/focus-tab github.com/johnlindquist/kit/discussions"]]]}
 
-        {:des "escape-mode"
-         :rules [:escape-mode
-                 [:-t ["~/.kit/kar chrome-history"]]
-                 [:-a ["~/.kit/kar app-launcher"]]
-                 [:-c ["~/.kit/kar auto-center-app"]]
-
-                 ;
-                 ]}
-
         {:des "launch"
          :rules
          [:l-mode
@@ -953,6 +944,60 @@
           [:-z [:launch "Visual Studio Code"]];viZ
           [:-x [:launch "Messages"]];
                  ;
+          ]}
+
+        {:des "kit-mode" :rules
+         [:kit-mode
+          [:-q
+           ["~/.kit/kar kit-discussions"]]
+          [:-c
+           ["~/.kenv/bin/code-project ~/.kit"]]
+          [:-d
+           ["~/.kenv/bin/code-project ~/.kit-docs"]]
+          [:-e
+           ["~/.kenv/bin/code-project ~/.kenv"]]
+          [:-v
+           ["~/.kenv/bin/code-project ~/dev/kenv"]]
+          [:-t
+           ["~/.kenv/bin/code-project ~/dev/kit"]]
+          [:-g
+           ["~/.kenv/bin/code-project ~/dev/globals"]] ;; 
+          [:-i
+           ["~/.kenv/bin/code-project ~/dev/kit-internal"]]
+          [:-x
+           ["~/.kenv/bin/code-project ~/dev/kit-examples"]]
+          [:-b
+           ["~/.kenv/bin/code-project ~/.kenv/tmp/bugs/bugs.md"]]
+          [:-a
+           ["~/.kenv/bin/code-project ~/dev/kitapp"]]
+          [:-s
+           ["~/.kenv/bin/code-project ~/dev/scriptkit.com"]]
+          [:1
+           ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/actions"]]
+          [:2
+           ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/releases"]]
+          [:3
+           ["~/.kenv/bin/focus-tab github.com/johnlindquist/kit/discussions"]]]}
+
+        {:des "escape-mode" :rules
+         [:escape-mode
+          ;
+          [:-t ["~/.kit/kar todo-pad"]]
+          [:-a ["~/.kit/kar app-launcher"]]
+          [:-c ["~/.kit/kar auto-center-app"]]
+          [:-n ["~/.kit/kar journal"]]
+          [:-b ["~/.kit/kar bugs"]]
+          [:-i ["~/.kit/kar script-ideas"]]
+          [:-r ["~/.kit/kar rhyme-finder"]]
+          [:1 :!CO1]
+          [:2 :!CO2]
+          [:3 :!CO3]
+          [:4 :!CO4]
+          [:5 :!CO5]
+          [:6 :!CO6]
+          [:7 :!CO7]
+          [:0 :!CO0]
+          ;
           ]}
 
 
