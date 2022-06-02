@@ -561,6 +561,7 @@
          :rules [:open-mode
                 ;;  [:-c [:code-project "~/.config"]]                 
                  [:-k ["~/.kit/kar update-karabiner-config"]] ;;                  
+                 [:-w ["~/.kit/kar ~/.kit/cli/edit.js ~/.kenv/scripts/wiki-ten"]]                   
                 ;;  [:-k ["~/.kit/kar update-karabiner-config"]] ;; 
                 ;;  [:-b [:code-project "~/.bin"]]
                 ;;  [:-z  [:code-project "~/.zfunc"]]
