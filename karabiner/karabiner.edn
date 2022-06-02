@@ -21,7 +21,6 @@
          :return {:key :return_or_enter}
          :tilde {:key :grave_accent_and_tilde}
 
-
          ;colemak froms (for easier mnemonics)
          :-q {:key :q}
          :-w {:key :w}
@@ -908,13 +907,13 @@
                  [:-c ["~/.kenv/bin/code-project ~/.kit"]]
                  [:-d ["~/.kenv/bin/code-project ~/.kit-docs"]]
                  [:-e ["~/.kenv/bin/code-project ~/.kenv"]]
-                 [:-v ["~/.kenv/bin/code-project ~/projects/kenv"]]
-                 [:-t ["~/.kenv/bin/code-project ~/projects/kit"]]
-                 [:-g ["~/.kenv/bin/code-project ~/projects/kit-globals"]]
-                 [:-i ["~/.kenv/bin/code-project ~/projects/kit-internal"]]
-                 [:-b ["~/.kenv/bin/code-project ~/projects/kit-bridge"]]
-                 [:-a ["~/.kenv/bin/code-project ~/projects/kitapp"]]
-                 [:-s ["~/.kenv/bin/code-project ~/projects/scriptkit.app"]]
+                 [:-v ["~/.kenv/bin/code-project ~/dev/kenv"]]
+                 [:-t ["~/.kenv/bin/code-project ~/dev/kit"]]
+                 [:-g ["~/.kenv/bin/code-project ~/dev/kit-globals"]]
+                 [:-i ["~/.kenv/bin/code-project ~/dev/kit-internal"]]
+                 [:-b ["~/.kenv/bin/code-project ~/dev/kit-bridge"]]
+                 [:-a ["~/.kenv/bin/code-project ~/dev/kitapp"]]
+                 [:-s ["~/.kenv/bin/code-project ~/dev/scriptkit.app"]]
 
                  [:1 ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/actions"]]
                  [:2 ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/releases"]]
