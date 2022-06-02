@@ -373,6 +373,8 @@
                  ]
          ;
          }
+         
+         {:des "Displays" :rules [:zero-mode [:1 :!CSTO1] [:2 :!CSTO2] [:3 :!CSTO3] [:4 :!CSTO4] ] }
 
         {:des "close"
          :rules [:close-mode
