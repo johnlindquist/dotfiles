@@ -1,5 +1,6 @@
-{:default true
-
+{
+ ;       
+ :default true
  :alone 500
  :delay 200
  :held 500
@@ -943,39 +944,6 @@
           [:-x [:launch "Messages"]];
                  ;
           ]}
-
-        {:des "kit-mode" :rules
-         [:kit-mode
-          [:-q
-           ["~/.kit/kar kit-discussions"]]
-          [:-c
-           ["~/.kenv/bin/code-project ~/.kit"]]
-          [:-d
-           ["~/.kenv/bin/code-project ~/.kit-docs"]]
-          [:-e
-           ["~/.kenv/bin/code-project ~/.kenv"]]
-          [:-v
-           ["~/.kenv/bin/code-project ~/dev/kenv"]]
-          [:-t
-           ["~/.kenv/bin/code-project ~/dev/kit"]]
-          [:-g
-           ["~/.kenv/bin/code-project ~/dev/globals"]] ;; 
-          [:-i
-           ["~/.kenv/bin/code-project ~/dev/kit-internal"]]
-          [:-x
-           ["~/.kenv/bin/code-project ~/dev/kit-examples"]]
-          [:-b
-           ["~/.kenv/bin/code-project ~/.kenv/tmp/bugs/bugs.md"]]
-          [:-a
-           ["~/.kenv/bin/code-project ~/dev/kitapp"]]
-          [:-s
-           ["~/.kenv/bin/code-project ~/dev/scriptkit.com"]]
-          [:1
-           ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/actions"]]
-          [:2
-           ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/releases"]]
-          [:3
-           ["~/.kenv/bin/focus-tab github.com/johnlindquist/kit/discussions"]]]}
 
         {:des "escape-mode" :rules
          [:escape-mode
