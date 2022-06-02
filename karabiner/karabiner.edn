@@ -952,6 +952,7 @@
           [:-a ["~/.kit/kar ~/.kit/main/app-launcher.js"]]
           [:-c ["~/.kit/kar auto-center-app"]]
           [:-n ["~/.kit/kar journal"]]
+          [:-w ["~/.kit/kar ~/.kit/cli/edit.js ~/.kenv/scripts/wiki-ten.js"]]
           [:-b ["~/.kit/kar bugs"]]
           [:-i ["~/.kit/kar script-ideas"]]
           [:-r ["~/.kit/kar rhyme-finder"]]
