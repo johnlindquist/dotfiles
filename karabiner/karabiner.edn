@@ -1,11 +1,10 @@
 {:default true
 
  :alone 500
- :delay 200 
+ :delay 200
  :held 500
  :simlayer-threshold 200
- :modifiers {
-             :super-hyper [:command :shift :control :option :fn]
+ :modifiers {:super-hyper [:command :shift :control :option :fn]
              :hyper [:command :shift :control :option]
              :cos [:command :shift :option]
              :cst [:command :shift :control]
@@ -177,7 +176,7 @@
 
        ;snippets
        }
- 
+
  :templates {;
              :beep "osascript -e 'beep'"
              :beep2 "osascript -e 'beep 2'"
@@ -215,7 +214,6 @@
                       tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"datamuse\" in workflow \"com.johnlindquist.datamuse\" with argument \"%s\"
                       '"
              ;
-
              }
 
  :applications {;
@@ -233,28 +231,27 @@
  :layers {;
           :caps_lock-mode {:key :caps_lock :alone
                            {:key :escape}}
-          :escape-mode {:key :escape nil [
-                                             ;in case a mode gets stuck 😬
-                                             {:set ["fn-mode" 0]}
-                                             {:set ["opt-mode" 0]}
-                                             {:set ["shift-opt-mode" 0]}
-                                             {:set ["movement-mode" 0]}
-                                             {:set ["cursor-mode" 0]}
-                                             {:set ["delete-mode" 0]}
-                                             {:set ["editor-mode" 0]}
-                                             {:set ["snippet-mode" 0]}]}
+          :escape-mode {:key :escape nil [;in case a mode gets stuck 😬
+                                          {:set ["fn-mode" 0]}
+                                          {:set ["opt-mode" 0]}
+                                          {:set ["shift-opt-mode" 0]}
+                                          {:set ["movement-mode" 0]}
+                                          {:set ["cursor-mode" 0]}
+                                          {:set ["delete-mode" 0]}
+                                          {:set ["editor-mode" 0]}
+                                          {:set ["snippet-mode" 0]}]}
           :f23-mode {:key :f23 :alone  {:key :vk_none}}
           :launch-mode {:key :f24 :alone {:key :spacebar :modi :left_option}}
           :non-mode {:key :non_us_backslash :alone {:key :non_us_backslash}}
           :num-mode {:key :keypad_num_lock :alone {:key :vk_none}}
           :shift-mode {:key :shift}
           :tab-mode {:key :tab}
-          
+
           :tilde-mode {:key :grave_accent_and_tilde :alone {:key :grave_accent_and_tilde}}
 
           ;testing left thumb + right thumb
           :f24-shift-mode {:key :left_shift :condi :launch-mode}
-          
+
 
 
           ;
@@ -286,7 +283,7 @@
              :semicolon-mode {:key :semicolon}; "i" in colemak
              :l-mode {:key :u}; "l" in colemak
              :kit-mode {:key :n}; "k" in colemak
-        ;;      :open-mode {:key :semicolon}; "o" in colemak
+             :open-mode {:key :semicolon}; "o" in colemak
              :snippet-mode {:key :quote}
              ;end homerow
 
@@ -306,7 +303,7 @@
              :password-mode {:key :quote :condi :shift-mode}
              ;end special keys
 
-             
+
 
 
 
@@ -323,20 +320,20 @@
            :kinesisb [{:product_id 65535 :vendor_id 1452}]
            :kinesisv [{:product_id 258 :vendor_id 1452}]
            :apple [{:product_id 832 :vendor_id 1452}]}
- 
+
  :main [;
-       
+
         {:des "apple"
          :rules [:apple
                  [:slash :left_command nil {:alone :slash}]
                  [:period :left_option nil {:alone :period}]
                  [:left_shift :left_shift nil {:alone :delete}]
                  [:right_shift :right_shift nil {:alone :delete_forward}]
-                 
-                 
+
+
                  ;
                  ]}
- 
+
 
         ;; {:des "moonlander"
         ;;  :rules [:moonlander
@@ -349,15 +346,11 @@
         ;; {:des "kinesisv"
         ;;  :rules [:kinesisv
         ;;          [:left_shift :left_shift nil {:alone :alfred}]
-                 
+
         ;;          ]}
         {:des "alfred"
-         :rules[
-                 [:home :home nil {:alone :alfred}]
-                 [:page_up :page_up nil {:alone :alfred}]
-                
-         ]
-         }
+         :rules [[:home :home nil {:alone :alfred}]
+                 [:page_up :page_up nil {:alone :alfred}]]}
 
         {:des "quick"
          ;;@see datamuse.mjs for typeMap
@@ -568,8 +561,8 @@
 
         {:des "open"
          :rules [:open-mode
-                ;;  [:-c [:code-project "~/.config"]]
-                 [:-k [:code-project "~/.dotfiles/karabiner/karabiner.edn ~/.dotfiles/karabiner/"]]
+                ;;  [:-c [:code-project "~/.config"]]                 
+                 [:-k ["~/.kit/kar update-karabiner-config"]] ;; 
                 ;;  [:-b [:code-project "~/.bin"]]
                 ;;  [:-z  [:code-project "~/.zfunc"]]
                 ;;  [:-r  [:code-project "~/.zshrc"]]
@@ -587,6 +580,7 @@
         {:des "password"
          :rules [[[:quote :1] [:type-secret "OTHER_PASSWORD"]]
                  [[:quote :2] [:type-secret "MAC_PASSWORD"]]
+                 [[:quote :5] [:type-secret "ADDRESS_1"]]
                  ;
                  ]}
 
@@ -598,10 +592,10 @@
                  [:-s [:a :s :y :n :c :spacebar]]  ;async
                  [:-n [:spacebar :c :l :a :s :s :!Sn :a :m :e :equal_sign :!Squote :!Squote :left_arrow]] ;className="" 
                 ;;  [:-l [:open_bracket :a :l :t :close_bracket :open_paren :close_paren :left_arrow :left_arrow]] ;[]()
-                 [:-e [:type "johnlindquist@egghead.io"]]
-                 [:-g [:type "johnlindquist@gmail.com"]]
-                 [:-x [:type "johnlindquist+spam@gmail.com"]]
-                 [:-j [:type "johnlindquist"]]
+                 [:-e [:type-secret "BUSINESS_EMAIL"]] ;
+                 [:-g [:type-secret "PERSONAL_EMAIL"]]
+                 [:-x [:type-secret "SPAM_EMAIL"]]
+                 [:-j [:type-secret "USERNAME"]]
                  ;
                  ]}
 
@@ -793,7 +787,7 @@
                  ;trackpad 2
                  [:condi :code ["multitouch_extension_finger_count_total" 2]]
                  [:-t [:button1 :f2]]
-                 
+
 
                  ;
                  ]}
