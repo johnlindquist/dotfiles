@@ -752,36 +752,6 @@
                  ;
                  ]}
         {:des "code-mode" :rules [:code-mode [:-r :rename]]}
-        {:des "code"
-         :rules [:code
-         ;                    
-                 [:left_command :left_command nil {:alone :go_to_file}]
-                 [:left_option :left_option nil {:alone :focus_terminal}]
-                 [:right_option :right_option nil {:alone :command_palette}]
-                 [:left_control :left_control nil {:alone :command_palette}]
-                 [:right_control :right_control nil {:alone :command_palette}] [:!Cs :replace]; 
-                 [:home :start_debugger] [:end :restart_debugger] [:condi :code :modify-mode] ;view ;note - I try to keep these on my left hand so I can keep my right on the mouse 
-                 [:condi :code :escape-mode] [:-g :focus_git] ;; SCM 
-                 [:-e :focus_explorer] ;; Explorer 
-                 [:-x :focus_explorer] ;; Explorer 
-                 [:-s :!!s] ;; Status Bar ;; 
-                 [:-t :focus_terminal] ;; 
-                 [:-n :new_terminal]
-                 [:-f :find_in_project]
-                 [:-a :f4] [:-z [:!Ck :z]] ;zen mode 
-                 [:-v :!!v] [:-x :!!x] [:-p :!!r] ;toggle panel 
-                 [:semicolon :!!semicolon] ;; 
-                 [:left_shift :!Cb]
-                 [:-a :toggle_sidebar]
-                 ;trackpad 
-                 [:condi :code ["multitouch_extension_finger_count_total" 1]]
-                 [:left_command :left_command nil {:alone :start_debugger}]
-                 [:left_option :left_option nil {:alone :restart_debugger}]
-                 ;trackpad 2 
-                 [:condi :code ["multitouch_extension_finger_count_total" 2]]
-                 [:-t [:button1 :f2]] ; 
-                 ]}
-
 
 
         {:des "code"
