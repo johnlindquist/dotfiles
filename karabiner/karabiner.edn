@@ -178,7 +178,8 @@
  :templates {;
              :beep "osascript -e 'beep'"
              :beep2 "osascript -e 'beep 2'"
-             :new-note "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"new-note\" in workflow \"com.johnlindquist.new-note\" with argument \"\"'"
+             :new-note "osascript -e 'tell application id \"com.runningwithcrayons.
+             \" to run trigger \"new-note\" in workflow \"com.johnlindquist.new-note\" with argument \"\"'"
              :new-blog "osascript -e 'tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"new-blog\" in workflow \"com.johnlindquist.new-blog\" with argument \"\"'"
              :alfred "osascript -e 'tell application \"Alfred 4\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'"
              :code-project "~/.kenv/bin/code-project \"%s\""
