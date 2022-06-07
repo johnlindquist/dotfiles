@@ -941,7 +941,7 @@
           [:-c [:alfred "code" "com.vivaxy.workflow.open-in-vscode" " "]]
           [:-d [:launch "Discord"]]
           [:-f [:launch "Finder"]];
-          [:-g [:alfred "github" "de.gh01.alfred.github" " "]]
+          [:-g [:launch "Google Chrome"]]
         ;;   [:-u [:launch "Music"]]
           [:-i [:launch "iTerm"]]
           [:-k "launchctl kickstart -k org.pqrs.karabiner.karabiner_console_user_server"] ;restart karabiner
