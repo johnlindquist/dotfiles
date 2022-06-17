@@ -854,7 +854,6 @@
          :rules [;
                  :multitouch_extension_finger_count_total
                  [:-t :button1]
-                 [:-d {:pkey :button1 :modi :left_option}]
 
 
                  [:w :!Cw]
