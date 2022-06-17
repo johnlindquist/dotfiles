@@ -63,7 +63,7 @@
        ;shortcuts
        :alfred {:key :spacebar :modi :option} ;!spacebar
        :autocomplete {:key :spacebar :modi :control} ;!Tspacebar
-       :command_palette {:key :t :modi :command}
+       :command_palette {:key :p :modi :cs}
 
        :capture_screenshot {:key :4 :modi :cs}
        :record_screen {:key :6 :modi :cs}
@@ -86,7 +86,7 @@
 
        :focus_git {:key :g :modi :ts} ;!TSg
        :focus_editor {:key :e :modi :control}
-       :focus_explorer {:key :e :modi :cos} ;:!CSOe
+       :focus_explorer {:key :e :modi :cs} ;:!CSOe
        :focus_terminal {:key :j :modi :command}
        :start_debugger {:key :f5}
        :restart_debugger {:key :f5 :modi :cs}
@@ -734,9 +734,9 @@
          :rules [:chrome
                  [:left_command :left_command nil {:alone [:!Ct]}]
                 ;;  [:left_option :left_option nil {:alone ["open simple://scripts/list-chrome-tabs"]}]
-                 [:right_option :focus_omnibar]
-                 [:left_control :left_option nil {:alone [:!CSt]}]
-                 [{:key :right_option :modi :left_command} :!COi]
+                ;;  [:right_option :focus_omnibar]
+                ;;  [:left_control :left_option nil {:alone [:!CSt]}]
+                ;;  [{:key :right_option :modi :left_command} :!COi]
                 ;;  [:-d :open_dev_tools]                 
 
                  [:condi :chrome ["multitouch_extension_finger_count_total" 1]]
@@ -758,8 +758,8 @@
         {:des "code"
          :rules [:code
                  [:left_command :left_command nil {:alone :go_to_file}]
-                 [:left_option :left_option nil {:alone :focus_terminal}]
-                 [:right_option :right_option nil {:alone :command_palette}]
+                ;;  [:left_option :left_option nil {:alone :focus_terminal}]
+                ;;  [:right_option :right_option nil {:alone :command_palette}]
                  [:left_control :left_control nil {:alone :command_palette}]
                  [:right_control :right_control nil {:alone :command_palette}]
                  [:!Cs :replace];
@@ -792,7 +792,7 @@
                  ;trackpad
                  [:condi :code ["multitouch_extension_finger_count_total" 1]]
                  [:left_command :left_command nil {:alone :start_debugger}]
-                 [:left_option :left_option nil {:alone :restart_debugger}]
+                ;;  [:left_option :left_option nil {:alone :restart_debugger}]
 
                  ;trackpad 2
                  [:condi :code ["multitouch_extension_finger_count_total" 2]]
@@ -853,7 +853,8 @@
         {:des "trackpad"
          :rules [;
                  :multitouch_extension_finger_count_total
-                 [:f :button1]
+                 [:-t :button1]
+                 [:-d :button1 :modi :left_command]
 
 
                  [:w :!Cw]
