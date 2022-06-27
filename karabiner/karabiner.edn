@@ -690,8 +690,9 @@
                  [:tilde :!COb]
 
 
-                 ; trackpad
+                 ; trackpad 1
                  [:condi :ableton :multitouch_extension_finger_count_total]
+                 [:tab :!Stab]
                  [:left_option [:!Ce :!Cj]]
                  [:-b :add_midi_clip]
                  [:-q [:q :q]]
