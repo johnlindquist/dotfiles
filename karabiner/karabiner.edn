@@ -52,10 +52,13 @@
          :-k {:key :n}
          :-m {:key :m}
 
+
          ;
          }
 
  :tos {;
+       :shift_click {:pkey :button1 :modi :left_shift}
+
        :delete {:key :delete_or_backspace}
        :return {:key :return_or_enter}
        :tilde {:key :grave_accent_and_tilde}
@@ -171,6 +174,9 @@
        :snap_to_grid {:key :4 :modi :command}
        :split_clip {:key :e :modi :command}
        ;
+
+       :display_layout_1 {:key :1 :modi :hyper}
+       :display_layout_2 {:key :1 :modi :hyper}
 
        ;snippets
        }
@@ -380,8 +386,8 @@
          ;
          :rules [:zero-mode
                                  ;
-                 [:1 :!CSTO1]
-                 [:2 :!CSTO2]
+                 [:1 :display_layout_1]
+                 [:2 :display_layout_2]
                  [:3 :!CSTO3]
                  [:4 :!CSTO4]
                                  ;
@@ -405,8 +411,8 @@
                  [:-a "open /Applications"]
                  [:-d "open ~/Downloads"]
                  [:-h "open ~"]
-                 ;[:-j ["~/.kit/kar fenced-js"]] ;; fenced js
-                 [:-j ["~/projects/hello-rust/target/release/hello back_quote back_quote back_quote j s return return back_quote back_quote back_quote up_arrow"]] ;; fenced js
+                 [:-j ["~/.kit/kar fenced-js"]] ;; fenced js
+
                  [:-b [:tilde :tilde :tilde :b :a :s :h :return_or_enter :return_or_enter :tilde :tilde :tilde :up_arrow]] ;; fenced bash
                  ;
                  ]}
@@ -683,32 +689,35 @@
          :rules [[:condi :ableton ["multitouch_extension_finger_count_total" 0]]
                 ;
                 ;  [:left_control :left_control nil {:alone :!CSm}]
-                 [:left_command :left_command nil {:alone :toggle_clip_device_view}]
-                 [:right_shift :right_shift nil {:alone :toggle_clip_device_view}]
+                ;;  [:left_command :left_command nil {:alone :toggle_clip_device_view}]
+                ;;  [:right_shift :right_shift nil {:alone :toggle_clip_device_view}]
                 ;;  [:right_alt :right_alt nil {:alone :!COp}]
 
                  [:tilde :!COb]
+
+                 [[:spacebar :s] :f9]
+                 [[:spacebar :a] [:open_bracket :open_bracket]]
 
 
                  ; trackpad 1
                  [:condi :ableton :multitouch_extension_finger_count_total]
                  [:tab :!Stab]
                  [:left_option [:!Ce :!Cj]]
-                 [:-b :add_midi_clip]
+                 [:-b [:shift_click :add_midi_clip]]
                  [:-q [:q :q]]
                  [:-w :!COl]
                  [:-d [:button1 :button1]]
 
 
-                 [:t :!C4]
+                 [:-g :!C4]
                  [:hyphen :!C1]
                  [:equal_sign :!C2]
 
                 ;;  [:g [:button1 :button1]]
 
 
-                 [:e :!Stab]
-                 [:r :!COp]
+                 [:-f :!Stab]
+                 [:-p :!COp]
 
                  [:left_shift [:button1 :delete_or_backspace]]
                  [:delete_or_backspace [:button1 :delete_or_backspace]]
@@ -724,7 +733,7 @@
                  [:-a :!COb]
                  [:-r :loop_selection]
                  [:-s :split_clip]
-                 [:-t :!Cl]
+                 [:-t :loop_selection]
                 ; trackpad 3
                  [:condi :ableton ["multitouch_extension_finger_count_total" 3]]
                  [:-t :add_midi_track]
@@ -908,6 +917,7 @@
         {:des "caps_lock"
          :rules [:caps_lock-mode
                  [:##caps_lock :##escape]
+                 [:a :caps_lock]
                  [:spacebar [:spacebar :equal_sign :spacebar]]
                  [:-g :focus_git]
                  ; I don't use a caps_lock key on my keyboard
@@ -925,7 +935,7 @@
                  [:-i ["~/.kenv/bin/code-project ~/dev/kit-internal"]]
                  [:-b ["~/.kenv/bin/code-project ~/dev/kit-bridge"]]
                  [:-a ["~/.kenv/bin/code-project ~/dev/kitapp"]]
-                 [:-s ["~/.kenv/bin/code-project ~/dev/scriptkit.app"]]
+                 [:-s ["~/.kenv/bin/code-project ~/dev/scriptkit.com"]]
 
                  [:1 ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/actions"]]
                  [:2 ["~/.kenv/bin/focus-tab github.com/johnlindquist/kitapp/releases"]]
