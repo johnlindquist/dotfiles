@@ -229,6 +229,7 @@
                 :miro ["com.electron.realtimeboard"]
                 :screenflow ["net.telestream.screenflow10"]
                 :slack ["com.tinyspeck.slackmacgap"]
+                :windows ["com.microsoft.rdc.macos"]
                 ;; :webstorm ["com.jetbrains.Webstorm"]
                 ;
                 }
@@ -329,6 +330,10 @@
 
  :main [;
 
+        {:des "windows"
+         :rules [:windows
+                 [:left_command :left_control]
+                 [:left_control :left_command]]}
         {:des "apple"
          :rules [:apple
                  [:slash :left_command nil {:alone :slash}]
