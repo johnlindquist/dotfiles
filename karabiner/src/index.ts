@@ -1,0 +1,137 @@
+import {
+  map,
+  mapSimultaneous,
+  rule,
+  withMapper,
+  writeToProfile,
+} from 'karabiner.ts'
+import { typeSecret$ } from './from-to'
+import {
+  abletonApp,
+  alfredApp,
+  chromeApp,
+  codeApp,
+  finalCutApp,
+  miroApp,
+  screenflowApp,
+  slackApp,
+  windowsApp,
+} from './rules/apps'
+import { appleDevice, trackpadDevice } from './rules/devices'
+import {
+  capsLockModeLayer,
+  closeModeLayer,
+  codeModeLayer,
+  commandModeLayer,
+  cursorModeLayer,
+  deleteModeLayer,
+  editorModeLayer,
+  emojiModeLayer,
+  escapeModeLayer,
+  finderModeLayer,
+  fnModeLayer,
+  goModeLayer,
+  kitModeLayer,
+  lModeLayer,
+  mediaModeLayer,
+  movementModeLayer,
+  openModeLayer,
+  optModeLayer,
+  peekModeLayer,
+  periodModeLayer,
+  quickModeLayer,
+  semicolonModeLayer,
+  shiftModeLayer,
+  shiftOptModeLayer,
+  slashModeLayer,
+  snippetModeLayer,
+  spacebarModeLayer,
+  tabModeLayer,
+  zeroModeLayer,
+} from './rules/layers'
+
+writeToProfile(
+  '--dry-run', // Change to Karabiner-Elements Profile name when ready
+  [
+    // Apps
+    windowsApp,
+    alfredApp,
+    abletonApp,
+    chromeApp,
+    codeApp,
+    finalCutApp,
+    miroApp,
+    screenflowApp,
+    slackApp,
+
+    // Devices
+    appleDevice,
+    trackpadDevice,
+
+    // Layers
+    quickModeLayer,
+    zeroModeLayer,
+    closeModeLayer,
+    finderModeLayer,
+    peekModeLayer,
+    goModeLayer,
+    fnModeLayer,
+    optModeLayer,
+    shiftOptModeLayer,
+    shiftModeLayer,
+    movementModeLayer,
+    cursorModeLayer,
+    deleteModeLayer,
+    editorModeLayer,
+    openModeLayer,
+    snippetModeLayer,
+    emojiModeLayer,
+    commandModeLayer,
+    mediaModeLayer,
+    codeModeLayer,
+    kitModeLayer,
+    lModeLayer,
+    escapeModeLayer,
+    spacebarModeLayer,
+    semicolonModeLayer,
+    periodModeLayer,
+    tabModeLayer,
+    slashModeLayer,
+    capsLockModeLayer,
+
+    // Others
+    rule('password').manipulators([
+      mapSimultaneous(['quote', 1]).to$(typeSecret$('OTHER_PASSWORD')),
+      mapSimultaneous(['quote', 2]).to$(typeSecret$('MAC_PASSWORD')),
+      mapSimultaneous(['quote', 5]).to$(typeSecret$('ADDRESS_1')),
+    ]),
+
+    rule('colemak').manipulators([
+      withMapper({
+        e: 'f',
+        r: 'p',
+        t: 'g',
+        y: 'j',
+        u: 'l',
+        i: 'u',
+        o: 'y',
+        p: ';',
+        s: 'r',
+        d: 's',
+        f: 't',
+        g: 'd',
+        j: 'n',
+        k: 'e',
+        l: 'i',
+        ';': 'o',
+        n: 'k',
+      } as const)((k, v) => map(k, '', 'any').to(v)),
+
+      map(']').to('a'),
+    ]),
+  ],
+  {
+    'basic.to_if_alone_timeout_milliseconds': 500,
+    'basic.to_delayed_action_delay_milliseconds': 200,
+  },
+)
